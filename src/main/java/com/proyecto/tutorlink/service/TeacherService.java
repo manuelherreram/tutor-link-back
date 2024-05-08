@@ -1,4 +1,5 @@
 package com.proyecto.tutorlink.service;
+import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.repository.TeacherRepository;
@@ -13,9 +14,16 @@ import java.util.List;
         private TeacherRepository teacherRepository;
 
         @Transactional
-        public Teacher addTeacher(Teacher teacher) throws CustomException {
+
+        public Teacher addTeacher(Teacher teacher) {
             if (teacherRepository.existsByDni(teacher.getDni())) {
-                throw new CustomException("A teacher with the same DNI already exists");
+                throw new IllegalStateException("A teacher with the same DNI already exists");
+            }
+            // cada imagen debe tener una referencia al teacher
+            if (teacher.getImages() != null) {
+                for (Image image : teacher.getImages()) {
+                    image.setTeacher(teacher); // Establecer la relación
+                }
             }
             return teacherRepository.save(teacher);
         }

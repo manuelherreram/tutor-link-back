@@ -1,7 +1,9 @@
 package com.proyecto.tutorlink.entity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -21,18 +23,20 @@ public class Teacher {
 
     @Column(length = 500)
     private String description;
-    @Column(nullable = false)
 
-    public String getDni() {
-        return dni;
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;  // imágenes asociadas al profesor
+
+    public Teacher() {
     }
 
-    public @NotNull(message = "Name cannot be null") @Size(min = 2, max = 100) String getName() {
-        return name;
+    // Getters y setters
+    public List<Image> getImages() {
+        return images;
     }
 
-    public Teacher(Long id) {
-        this.id = id;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public Long getId() {
@@ -43,8 +47,16 @@ public class Teacher {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDni() {
+        return dni;
     }
 
     public void setDni(String dni) {
@@ -57,8 +69,5 @@ public class Teacher {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Teacher() {
     }
 }

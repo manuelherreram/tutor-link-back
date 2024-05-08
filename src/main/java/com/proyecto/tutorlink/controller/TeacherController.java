@@ -33,8 +33,6 @@ public class TeacherController {
         } catch (IllegalStateException e) {
             logger.error("Error adding teacher:", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (CustomException e) {
-            throw new RuntimeException(e);
         }
     }
 
