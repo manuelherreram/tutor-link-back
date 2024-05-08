@@ -1,7 +1,7 @@
 - BackEnd despliega en el puerto 8080
 - la ruta para GET y POST es localhost:8080/api/teachers
 - formato JSON Post: 
-  { "name": "Pedro Sanchez",  
+  {  "name": "Pedro Sanchez",  
     "dni": "987654321Y",  
     "description": "Profesor de Inglés",  
     "images": [  
