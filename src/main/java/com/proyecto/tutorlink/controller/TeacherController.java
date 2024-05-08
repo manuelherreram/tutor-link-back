@@ -1,5 +1,6 @@
 package com.proyecto.tutorlink.controller;
 import com.proyecto.tutorlink.entity.Teacher;
+import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.service.TeacherService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,10 @@ public class TeacherController {
             logger.info("Added teacher: {}", savedTeacher);
             return ResponseEntity.ok(savedTeacher);
         } catch (IllegalStateException e) {
-            logger.error("Error adding teacher: ", e.getMessage());
+            logger.error("Error adding teacher:", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (CustomException e) {
+            throw new RuntimeException(e);
         }
     }
 
