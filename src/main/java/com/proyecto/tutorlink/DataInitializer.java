@@ -30,14 +30,22 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
     private void initializeData() {
         List<Teacher> teachers = new ArrayList<>();
-        teachers.add(new Teacher("Profesor Pedro 1", "DNI100001", "Descripción detallada del Profesor 1"));
-        teachers.add(new Teacher("Profesor Ana 2", "DNI100002", "Descripción detallada del Profesor 2"));
-        // Continuar añadiendo profesores según se requiera.
+        teachers.add(new Teacher("Profesor Juan 3", "DNI100003", "Descripción detallada del Profesor 3"));
+        teachers.add(new Teacher("Profesor María 4", "DNI100004", "Descripción detallada del Profesor 4"));
+        teachers.add(new Teacher("Profesor José 5", "DNI100005", "Descripción detallada del Profesor 5"));
+        teachers.add(new Teacher("Profesor Laura 6", "DNI100006", "Descripción detallada del Profesor 6"));
+        teachers.add(new Teacher("Profesor Carlos 7", "DNI100007", "Descripción detallada del Profesor 7"));
+        teachers.add(new Teacher("Profesor Ana 8", "DNI100008", "Descripción detallada del Profesor 8"));
+        teachers.add(new Teacher("Profesor Luis 9", "DNI100009", "Descripción detallada del Profesor 9"));
+        teachers.add(new Teacher("Profesor Marta 10", "DNI100010", "Descripción detallada del Profesor 10"));
+        teachers.add(new Teacher("Profesor David 11", "DNI100011", "Descripción detallada del Profesor 11"));
+        teachers.add(new Teacher("Profesor Julia 12", "DNI100012", "Descripción detallada del Profesor 12"));
+
 
         teachers.forEach(teacher -> {
             Teacher savedTeacher = teacherRepository.save(teacher);
-            imageRepository.save(new Image("http://example.com/images/profesor1-1.jpg", "Imagen 1 del Profesor Pedro 1", savedTeacher));
-            imageRepository.save(new Image("http://example.com/images/profesor1-2.jpg", "Imagen 2 del Profesor Pedro 1", savedTeacher));
+            imageRepository.save(new Image("https://images.unsplash.com/photo-1511629091441-ee46146481b6?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmVzb3J8ZW58MHx8MHx8fDA%3D", "Imagen 1 del Profesor Pedro 1", savedTeacher));
+            imageRepository.save(new Image("https://images.unsplash.com/photo-1580894732444-8ecded7900cd?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 2 del Profesor Pedro 1", savedTeacher));
         });
     }
 }
