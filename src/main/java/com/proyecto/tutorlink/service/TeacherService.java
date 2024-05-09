@@ -15,6 +15,10 @@ import java.util.List;
 
         @Transactional
 
+
+// ID se están asignando secuencialmente por bug de ID nulo
+
+
         public Teacher addTeacher(Teacher teacher) {
             if (teacherRepository.existsByDni(teacher.getDni())) {
                 throw new IllegalStateException("A teacher with the same DNI already exists");

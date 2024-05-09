@@ -30,6 +30,20 @@ public class Teacher {
     public Teacher() {
     }
 
+    public Teacher(Long id, String name, String dni, String description, List<Image> images) {
+        this.id = id;
+        this.name = name;
+        this.dni = dni;
+        this.description = description;
+        this.images = images;
+    }
+
+    public Teacher(String name, String dni, String description) {
+        this.name = name;
+        this.dni = dni;
+        this.description = description;
+    }
+
     // Getters y setters
     public List<Image> getImages() {
         return images;
