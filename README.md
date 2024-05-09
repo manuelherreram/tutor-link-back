@@ -1,8 +1,10 @@
 - BackEnd despliega en el puerto 8080
 - Rutas: 
 - Obtener todos los profesores: GET localhost:8080/api/teachers 
+- Obtener 10 profesores al azar: GET localhost:8080/api/teachers/index
 - Buscar por id: GET localhost:8080/api/teachers/{id}
 - Guardar nuevo profesor: POST localhost:8080/api/teachers
+- 
  
 - Formato:  
 
