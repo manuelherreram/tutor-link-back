@@ -2,6 +2,7 @@ package com.proyecto.tutorlink.controller;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.service.TeacherService;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,19 @@ public class TeacherController {
         logger.info("Retrieved all teachers");
         return ResponseEntity.ok(teachers);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getTeacherById(@PathVariable Long id) {
+        try {
+            Teacher teacher = teacherService.getTeacherById(id);
+            logger.info("Retrieved teacher: {}", teacher);
+            return ResponseEntity.ok(teacher);
+        } catch (CustomException e) {
+            logger.error("Error retrieving teacher:", e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping
     public ResponseEntity<?> addTeacher(@RequestBody Teacher teacher) {
         try {

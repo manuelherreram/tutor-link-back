@@ -34,6 +34,11 @@ import java.util.List;
     public List<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
     }
-}
+
+    public Teacher getTeacherById(Long id) throws CustomException {
+        return teacherRepository.findById(id).orElseThrow(() -> new CustomException("Teacher not found"));
+        }
+
+    }
 
 
