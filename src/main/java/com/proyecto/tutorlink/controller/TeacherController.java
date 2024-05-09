@@ -21,7 +21,7 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
-    @GetMapping
+    @GetMapping("/admin")
     public ResponseEntity<List<Teacher>> getAllTeachers() {
         List<Teacher> teachers = teacherService.getAllTeachers();
         logger.info("Retrieved all teachers");
@@ -55,6 +55,14 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTeacherById(@PathVariable Long id) {
+        try {
+            teacherService.deleteTeacherById(id);
+            return ResponseEntity.ok().build();
+        } catch (CustomException e) {
+            return ResponseEntity.notFound().build();
+        }
 
-
+}
 }

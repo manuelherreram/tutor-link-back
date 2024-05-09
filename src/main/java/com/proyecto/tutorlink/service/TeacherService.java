@@ -46,12 +46,17 @@ import java.util.Random;
             }
             List<Teacher> randomTeachers = new ArrayList<>(teachers);
             Collections.shuffle(randomTeachers); // Mezcla aleatoriamente la lista de profesores
-            return randomTeachers.subList(0, count); // Devuelve los primeros 10 profesores de la lista mezclada
+            return randomTeachers.subList(0, count); // Devuelve los primeros 10 mezclados
         }
     public Teacher getTeacherById(Long id) throws CustomException {
         return teacherRepository.findById(id).orElseThrow(() -> new CustomException("Teacher not found"));
         }
-
+        public void deleteTeacherById(Long id) throws CustomException {
+            if (!teacherRepository.existsById(id)) {
+                throw new CustomException("Teacher not found");
+            }
+            teacherRepository.deleteById(id);
+        }
     }
 
 
