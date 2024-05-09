@@ -39,7 +39,11 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @GetMapping("/index")
+    public ResponseEntity<List<Teacher>> getRandomTeachers() {
+        List<Teacher> randomTeachers = teacherService.getRandomTeachers();
+        return ResponseEntity.ok(randomTeachers);
+    }
     @PostMapping
     public ResponseEntity<?> addTeacher(@RequestBody Teacher teacher) {
         try {
