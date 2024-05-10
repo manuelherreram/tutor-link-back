@@ -27,21 +27,27 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;  // imágenes asociadas al profesor
 
+    @OneToOne
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    private Subject subject;
+
     public Teacher() {
     }
 
-    public Teacher(Long id, String name, String dni, String description, List<Image> images) {
+    public Teacher(Long id, String name, String dni, String description, List<Image> images, Subject subject) {
         this.id = id;
         this.name = name;
         this.dni = dni;
         this.description = description;
         this.images = images;
+        this.subject = subject;
     }
 
-    public Teacher(String name, String dni, String description) {
+    public Teacher(String name, String dni, String description, Subject subject) {
         this.name = name;
         this.dni = dni;
         this.description = description;
+        this.subject = subject;
     }
 
     // Getters y setters
@@ -83,5 +89,13 @@ public class Teacher {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }
