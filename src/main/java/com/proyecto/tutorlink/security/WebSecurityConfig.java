@@ -1,5 +1,4 @@
 package com.proyecto.tutorlink.security;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
-
 import java.util.Arrays;
 
 @Configuration
@@ -37,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedMethod("DELETE");
         configuration.addAllowedMethod("OPTIONS");
         configuration.addAllowedHeader("*");
-        configuration.setAllowCredentials(false); // Permite credenciales
+        configuration.setAllowCredentials(false);
         configuration.setAllowedOriginPatterns(Arrays.asList("http://*", "https://*"));
         // Usa patrones para permitir cualquier origen seguro
 

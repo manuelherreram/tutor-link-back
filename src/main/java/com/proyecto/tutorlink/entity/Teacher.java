@@ -27,10 +27,9 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> images;  // imágenes asociadas al profesor
 
-    @OneToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
-    private Subject subject;
-
+    @ManyToOne
+    @JoinColumn(name = "subject_id") // Establece la relación con Subject
+    private Subject subject; // Campo que mapea la relación con Subject
     public Teacher() {
     }
 

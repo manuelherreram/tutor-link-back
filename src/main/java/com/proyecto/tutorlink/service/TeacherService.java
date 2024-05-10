@@ -1,7 +1,9 @@
 package com.proyecto.tutorlink.service;
 import com.proyecto.tutorlink.entity.Image;
+import com.proyecto.tutorlink.entity.Subject;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
+import com.proyecto.tutorlink.repository.SubjectRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,51 +14,62 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-    @Service
-    public class TeacherService {
-        @Autowired
-        private TeacherRepository teacherRepository;
+@Service
+public class TeacherService {
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
 
-        @Transactional
+    @Transactional
 
-        public Teacher addTeacher(Teacher teacher) {
-            if (teacherRepository.existsByDni(teacher.getDni())) {
-                throw new IllegalStateException("A teacher with the same DNI already exists");
-            }
-            // cada imagen debe tener una referencia al teacher
-            if (teacher.getImages() != null) {
-                for (Image image : teacher.getImages()) {
-                    image.setTeacher(teacher); // Establecer la relación
-                }
-            }
-            return teacherRepository.save(teacher);
+    public Teacher addTeacher(Teacher teacher) {
+        if (teacherRepository.existsByDni(teacher.getDni())) {
+            throw new IllegalStateException("A teacher with the same DNI already exists");
         }
+        // cada imagen debe tener una referencia al teacher
+        if (teacher.getImages() != null) {
+            for (Image image : teacher.getImages()) {
+                image.setTeacher(teacher); // Establecer la relación
+            }
+        }
+
+        // Asociar el Subject existente o crear uno nuevo
+        Subject subject = teacher.getSubject();
+        if (subject != null) {
+            Subject existingSubject = subjectRepository.findByTitle(subject.getTitle())
+                    .orElse(subjectRepository.save(new Subject(subject.getTitle())));
+            teacher.setSubject(existingSubject); // Asegura que el profesor use el subject existente o el recién creado
+        } else {
+            throw new IllegalStateException("Subject must be provided");
+        }
+
+        return teacherRepository.save(teacher);
+    }
     public List<Teacher> getAllTeachers() {
         return teacherRepository.findAll();
     }
 
-        public List<Teacher> getRandomTeachers() {
-            List<Teacher> allTeachers = teacherRepository.findAll();
-            return selectRandomTeachers(allTeachers, 10);
-        }
-
-        private List<Teacher> selectRandomTeachers(List<Teacher> teachers, int count) {
-            if (count >= teachers.size()) {
-                return teachers;
-            }
-            List<Teacher> randomTeachers = new ArrayList<>(teachers);
-            Collections.shuffle(randomTeachers); // Mezcla aleatoriamente la lista de profesores
-            return randomTeachers.subList(0, count); // Devuelve los primeros 10 mezclados
-        }
-    public Teacher getTeacherById(Long id) throws CustomException {
-        return teacherRepository.findById(id).orElseThrow(() -> new CustomException("Teacher not found"));
-        }
-        public void deleteTeacherById(Long id) throws CustomException {
-            if (!teacherRepository.existsById(id)) {
-                throw new CustomException("Teacher not found");
-            }
-            teacherRepository.deleteById(id);
-        }
+    public List<Teacher> getRandomTeachers() {
+        List<Teacher> allTeachers = teacherRepository.findAll();
+        return selectRandomTeachers(allTeachers, 10);
     }
 
-
+    private List<Teacher> selectRandomTeachers(List<Teacher> teachers, int count) {
+        if (count >= teachers.size()) {
+            return teachers;
+        }
+        List<Teacher> randomTeachers = new ArrayList<>(teachers);
+        Collections.shuffle(randomTeachers); // Mezcla aleatoriamente la lista de profesores
+        return randomTeachers.subList(0, count); // Devuelve los primeros 10 mezclados
+    }
+    public Teacher getTeacherById(Long id) throws CustomException {
+        return teacherRepository.findById(id).orElseThrow(() -> new CustomException("Teacher not found"));
+    }
+    public void deleteTeacherById(Long id) throws CustomException {
+        if (!teacherRepository.existsById(id)) {
+            throw new CustomException("Teacher not found");
+        }
+        teacherRepository.deleteById(id);
+    }
+}

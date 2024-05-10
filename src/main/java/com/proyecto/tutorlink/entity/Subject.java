@@ -1,6 +1,7 @@
 package com.proyecto.tutorlink.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "SUBJECTS")
@@ -12,8 +13,8 @@ public class Subject {
     @Column(length = 50)
     private String title;
 
-    @OneToOne(mappedBy = "subject")
-    private Teacher teacher;
+    @OneToMany(mappedBy = "subject") // Relación con Teacher
+    private List<Teacher> teachers; // Campo que mapea la relación con Teacher
 
     public Subject() {
     }
