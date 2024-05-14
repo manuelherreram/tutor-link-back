@@ -44,28 +44,28 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         subjectRepository.save(subjectH);
         subjectRepository.save(subjectG);
 
-        teachers.add(new Teacher("Docente Juan 1", "DNI100001", "Descripción detallada del Docente 1", subjectH));
-        teachers.add(new Teacher("Docente María 2", "DNI100002", "Descripción detallada del Docente 2", subjectG));
-        teachers.add(new Teacher("Docente Juan 3", "DNI100003", "Descripción detallada del Docente 3", subjectH));
-        teachers.add(new Teacher("Docente María 4", "DNI100004", "Descripción detallada del Docente 4", subjectG));
-        teachers.add(new Teacher("Docente José 5", "DNI100005", "Descripción detallada del Docente 5", subjectM));
-        teachers.add(new Teacher("Docente Laura 6", "DNI100006", "Descripción detallada del Docente 6", subjectH));
-        teachers.add(new Teacher("Docente Carlos 7", "DNI100007", "Descripción detallada del Docente 7", subjectM));
-        teachers.add(new Teacher("Docente Ana 8", "DNI100008", "Descripción detallada del Docente 8", subjectM));
-        teachers.add(new Teacher("Docente Luis 9", "DNI100009", "Descripción detallada del Docente 9", subjectH));
-        teachers.add(new Teacher("Docente Marta 10", "DNI100010", "Descripción detallada del Docente 10", subjectM));
-        teachers.add(new Teacher("Docente David 11", "DNI100011", "Descripción detallada del Docente 11", subjectH));
-        teachers.add(new Teacher("Docente Julia 12", "DNI100012", "Descripción detallada del Docente 12", subjectM));
-        teachers.add(new Teacher("Docente Juan 13", "DNI100013", "Descripción detallada del Docente 13", subjectG));
-        teachers.add(new Teacher("Docente María 14", "DNI100014", "Descripción detallada del Docente 14", subjectH));
-        teachers.add(new Teacher("Docente José 15", "DNI100015", "Descripción detallada del Docente 15", subjectG));
-        teachers.add(new Teacher("Docente Laura 16", "DNI100016", "Descripción detallada del Docente 16", subjectG));
-        teachers.add(new Teacher("Docente Carlos 17", "DNI100017", "Descripción detallada del Docente 17", subjectH));
-        teachers.add(new Teacher("Docente Ana 18", "DNI100018", "Descripción detallada del Docente 18", subjectG));
-        teachers.add(new Teacher("Docente Luis 19", "DNI100019", "Descripción detallada del Docente 19", subjectG));
-        teachers.add(new Teacher("Docente Marta 20", "DNI100020", "Descripción detallada del Docente 20", subjectH));
-        teachers.add(new Teacher("Docente David 21", "DNI100021", "Descripción detallada del Docente 21", subjectG));
-        teachers.add(new Teacher("Docente Julia 22", "DNI100022", "Descripción detallada del Docente 22", subjectM));
+        teachers.add(new Teacher("Marcelo Díaz", "100001", "Experto en métodos educativos innovadores y tecnologías de aprendizaje.", subjectH));
+        teachers.add(new Teacher("Lucía Fernández", "100002", "Amplia experiencia en educación primaria y desarrollo infantil.", subjectG));
+        teachers.add(new Teacher("Carlos Ramírez", "100003", "Especialista en historia mundial y dinámicas de grupo.", subjectH));
+        teachers.add(new Teacher("Sofía Morales", "100004", "Dedicada a la enseñanza del arte y la expresión creativa.", subjectG));
+        teachers.add(new Teacher("Eduardo Vargas", "100005", "Profesor de matemáticas con enfoque en resolución de problemas.", subjectM));
+        teachers.add(new Teacher("Laura Martínez", "100006", "Especialista en ciencias de la salud y educación para el bienestar.", subjectH));
+        teachers.add(new Teacher("Antonio López", "100007", "Imparte clases de física avanzada y experimentación científica.", subjectM));
+        teachers.add(new Teacher("Ana Sánchez", "100008", "Enfocada en técnicas de aprendizaje interactivo y educación inclusiva.", subjectM));
+        teachers.add(new Teacher("Jorge Castillo", "100009", "Experto en literatura y análisis textual crítico.", subjectH));
+        teachers.add(new Teacher("Marta Domínguez", "100010", "Profesora de química con pasión por la investigación y la ciencia.", subjectM));
+        teachers.add(new Teacher("David Gómez", "100011", "Imparte conocimientos avanzados en geografía y estudios ambientales.", subjectH));
+        teachers.add(new Teacher("Julia López", "100012", "Docente en lenguas extranjeras especializada en francés y español.", subjectM));
+        teachers.add(new Teacher("Juan Ríos", "100013", "Profesor de música con énfasis en teoría musical y composición.", subjectG));
+        teachers.add(new Teacher("María Pérez", "100014", "Veterana en pedagogía y estrategias de gestión educativa.", subjectH));
+        teachers.add(new Teacher("José Ortiz", "100015", "Experto en economía y administración de empresas educativas.", subjectG));
+        teachers.add(new Teacher("Laura Giménez", "100016", "Enseña habilidades de comunicación efectiva y oratoria.", subjectG));
+        teachers.add(new Teacher("Carlos Ruiz", "100017", "Profesor de tecnología e informática aplicada a la educación.", subjectH));
+        teachers.add(new Teacher("Ana Torres", "100018", "Especializada en educación especial y apoyo diferenciado.", subjectG));
+        teachers.add(new Teacher("Luis Méndez", "100019", "Profesor de ciencias sociales con enfoque en sociología educativa.", subjectG));
+        teachers.add(new Teacher("Marta Vega", "100020", "Imparte conocimientos en filosofía y pensamiento crítico.", subjectH));
+        teachers.add(new Teacher("David Navarro", "100021", "Especialista en biología y ciencias naturales.", subjectG));
+        teachers.add(new Teacher("Julia Casas", "100022", "Experta en psicología educativa y desarrollo del aprendizaje.", subjectM));
 
 
         teachers.forEach(teacher -> {
