@@ -66,7 +66,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         teachers.add(new Teacher("Marta Vega", "100020", "Imparte conocimientos en filosofía y pensamiento crítico.", subjectH));
         teachers.add(new Teacher("David Navarro", "100021", "Especialista en biología y ciencias naturales.", subjectG));
         teachers.add(new Teacher("Julia Casas", "100022", "Experta en psicología educativa y desarrollo del aprendizaje.", subjectM));
-
+        teachers.add(new Teacher("Juan García", "100023", "Profesor de educación física y deportes.", subjectG));
+        teachers.add(new Teacher("María Soto", "100024", "Enseña técnicas de estudio y preparación para exámenes.", subjectH));
 
         teachers.forEach(teacher -> {
             Teacher savedTeacher = teacherRepository.save(teacher);
