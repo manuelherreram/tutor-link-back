@@ -20,7 +20,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // Deshabilita CSRF
                 .authorizeRequests()
                 .antMatchers("/h2-console/**", "/swagger-ui.html", "/v2/api-docs", "/swagger-resources/**", "/webjars/**").permitAll() // Permite acceso a Swagger UI y H2 console
-                .antMatchers("/api/**").permitAll() // Permite todos los endpoints de la API
+
+                .antMatchers("/api/teachers/admin").hasRole("ADMIN") // Requiere rol ADMIN para acceder a /api/teachers/admin
+
+                .antMatchers("/api/teachers/**").permitAll() // Permite acceso a todos los endpoints de /api/teachers
+                .antMatchers("/api/users/**").permitAll() // Permite acceso a todos los endpoints de /api/users
                 .anyRequest().authenticated() // Requiere autenticación para cualquier otro request
                 .and()
                 .headers().frameOptions().disable(); // Permite frames para la consola H2
