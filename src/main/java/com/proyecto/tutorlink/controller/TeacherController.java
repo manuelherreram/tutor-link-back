@@ -44,6 +44,12 @@ public class TeacherController {
         List<Teacher> randomTeachers = teacherService.getRandomTeachers();
         return ResponseEntity.ok(randomTeachers);
     }
+    @GetMapping("/bycategory")
+    public ResponseEntity<List<Teacher>> getTeachersBySubject(@RequestParam String subject) {
+        List<Teacher> teachers = teacherService.getTeachersBySubject(subject);
+        return ResponseEntity.ok(teachers);
+    }
+
     @PostMapping
     public ResponseEntity<?> addTeacher(@RequestBody Teacher teacher) {
         try {

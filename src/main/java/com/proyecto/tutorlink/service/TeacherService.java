@@ -66,6 +66,10 @@ public class TeacherService {
     public Teacher getTeacherById(Long id) throws CustomException {
         return teacherRepository.findById(id).orElseThrow(() -> new CustomException("Teacher not found"));
     }
+    public List<Teacher> getTeachersBySubject(String subjectTitle) {
+        return teacherRepository.findBySubjectTitle(subjectTitle);
+    }
+
     public void deleteTeacherById(Long id) throws CustomException {
         if (!teacherRepository.existsById(id)) {
             throw new CustomException("Teacher not found");

@@ -40,7 +40,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private void initializeData() {
         List<Teacher> teachers = new ArrayList<>();
 
-        Subject subjectM = new Subject("Matematica");
+        Subject subjectM = new Subject("Matematicas");
         Subject subjectH = new Subject("Historia");
         Subject subjectG = new Subject("Geografia");
 
