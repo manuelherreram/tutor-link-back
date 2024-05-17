@@ -1,5 +1,4 @@
 package com.proyecto.tutorlink;
-
 import com.proyecto.tutorlink.entity.Subject;
 import com.proyecto.tutorlink.repository.SubjectRepository;
 import org.springframework.context.ApplicationListener;
@@ -9,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.entity.Image;
+import com.proyecto.tutorlink.entity.User;
+import com.proyecto.tutorlink.repository.UserRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.repository.ImageRepository;
 
@@ -22,6 +23,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private TeacherRepository teacherRepository;
     @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private  SubjectRepository subjectRepository;
@@ -78,6 +82,32 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             imageRepository.save(new Image("https://images.unsplash.com/photo-1555436169-20e93ea9a7ff?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 5 del Profesor", savedTeacher));
         });
 
+        // Crear usuarios de prueba
+            if (userRepository.count() == 0) {
+                initializeUsers();
+            }
+        }
+
+        private void initializeUsers() {
+            // Crear usuarios de prueba
+            createUser("John", "Doe", "john.doe@example.com", User.UserRole.USER);
+            createUser("Jane", "Doe", "jane.doe@example.com", User.UserRole.ADMIN);
+            // Añadir más usuarios según sea necesario
+        }
+
+        private void createUser(String name, String lastName, String email, User.UserRole role) {
+            User user = new User();
+            user.setName(name);
+            user.setLastName(lastName);
+            user.setEmail(email);
+
+            // user.setPassword(passwordEncoder.encode("defaultPassword"));
+            user.setRole(role);
+
+            userRepository.save(user);
+        }
+
+
     }
-}
+
 

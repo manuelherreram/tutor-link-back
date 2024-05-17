@@ -1,10 +1,12 @@
 package com.proyecto.tutorlink.service;
+import com.proyecto.tutorlink.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.proyecto.tutorlink.entity.User;
 import com.proyecto.tutorlink.repository.UserRepository;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -17,11 +19,14 @@ import java.util.NoSuchElementException;
         private PasswordEncoder passwordEncoder;
 
         public User saveUser(User user) {
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
+
+            //String encodedPassword = passwordEncoder.encode(user.getPassword());
+            //user.setPassword(encodedPassword);
+
             return userRepository.save(user);
         }
-
+    public List<User> getAllUsers() {
+        return userRepository.findAll();    }
         public User findUserById(Long id) {
             return userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
         }
@@ -31,8 +36,12 @@ import java.util.NoSuchElementException;
             user.setName(userDetails.getName());
             user.setLastName(userDetails.getLastName());
             user.setEmail(userDetails.getEmail());
+
             // Codifica la contraseña
-            user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+            // user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+
+            // user.setPassword(userDetails.getPassword());
+            user.setRole(userDetails.getRole());
             return userRepository.save(user);
         }
 

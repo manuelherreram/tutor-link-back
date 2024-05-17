@@ -1,4 +1,5 @@
 package com.proyecto.tutorlink.controller;
+import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,6 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import com.proyecto.tutorlink.service.UserService;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -13,6 +16,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+
+        return ResponseEntity.ok(users);
+    }
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         User newUser = userService.saveUser(user);

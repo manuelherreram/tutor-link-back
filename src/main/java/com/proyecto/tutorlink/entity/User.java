@@ -28,11 +28,12 @@ public class User implements Serializable {
     @Size(max = 100, message = "Email must not exceed 100 characters")
     private String email;
 
+        /*
     @Column(nullable = false, length = 255)
     @NotBlank(message = "Password cannot be empty")
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-
+        */
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private UserRole role;
@@ -47,7 +48,7 @@ public class User implements Serializable {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        // this.password = password;
         this.role = role;
     }
 
@@ -82,15 +83,6 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public UserRole getRole() {
         return role;
     }
