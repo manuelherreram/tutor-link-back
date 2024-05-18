@@ -8,6 +8,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Arrays;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -16,6 +18,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .addFilterBefore(new FirebaseTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+                .cors().and()
+                .csrf().disable()
                 .cors().and() // Habilita CORS
                 .csrf().disable() // Deshabilita CSRF
                 .authorizeRequests()
@@ -29,6 +34,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers().frameOptions().disable(); // Permite frames para la consola H2
     }
+/*
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http
+            .addFilterBefore(new FirebaseTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+            .cors().and().csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/api/admin/**").hasRole("ADMIN")  // Solo los ADMIN pueden acceder
+            .antMatchers("/api/users/**").hasRole("USER")   // Solo los USERS pueden acceder
+            .anyRequest().authenticated()
+            .and()
+            .cors().configurationSource(corsConfigurationSource());
+}
+
+ */
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {

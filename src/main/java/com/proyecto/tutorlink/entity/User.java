@@ -34,22 +34,22 @@ public class User implements Serializable {
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
         */
-    @Enumerated(EnumType.STRING)
+    /*@Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private UserRole role;
     public enum UserRole {
         ADMIN, USER
-    }
+    }*/
 
     public User() {
     }
 
-    public User(String name, String lastName, String email, String password, UserRole role) {
+    public User(String name, String lastName, String email, String password) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         // this.password = password;
-        this.role = role;
+        //this.role = role;
     }
 
     public Long getId() {
@@ -83,12 +83,5 @@ public class User implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    public UserRole getRole() {
-        return role;
     }
-
-    public void setRole(UserRole role) {
-        this.role = role;
-    }
-}
 

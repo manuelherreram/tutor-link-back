@@ -3,7 +3,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-firebase-admin-sdk.json
 
 
 ### STS ###
@@ -33,3 +32,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/firebase-service-account.json
