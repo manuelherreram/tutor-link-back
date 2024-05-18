@@ -41,7 +41,7 @@ import java.util.NoSuchElementException;
             // user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
 
             // user.setPassword(userDetails.getPassword());
-            user.setRole(userDetails.getRole());
+            //user.setRole(userDetails.getRole());
             return userRepository.save(user);
         }
 

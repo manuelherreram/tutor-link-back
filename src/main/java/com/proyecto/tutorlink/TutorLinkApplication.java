@@ -14,7 +14,7 @@ public class TutorLinkApplication {
 
 	}
 	private static void initializeFirebase() {
-		try (InputStream serviceAccount = TutorLinkApplication.class.getClassLoader().getResourceAsStream("firebase-service-account.json")) {
+		try (InputStream serviceAccount = TutorLinkApplication.class.getClassLoader().getResourceAsStream("firebase-admin-sdk.json")) {
 			FirebaseOptions options = new FirebaseOptions.Builder()
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount))
 					.build();

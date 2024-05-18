@@ -90,19 +90,19 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         private void initializeUsers() {
             // Crear usuarios de prueba
-            createUser("John", "Doe", "john.doe@example.com", User.UserRole.USER);
-            createUser("Jane", "Doe", "jane.doe@example.com", User.UserRole.ADMIN);
+            createUser("John", "Doe", "john.doe@example.com");
+            createUser("Jane", "Doe", "jane.doe@example.com");
             // Añadir más usuarios según sea necesario
         }
 
-        private void createUser(String name, String lastName, String email, User.UserRole role) {
+        private void createUser(String name, String lastName, String email) {
             User user = new User();
             user.setName(name);
             user.setLastName(lastName);
             user.setEmail(email);
 
             // user.setPassword(passwordEncoder.encode("defaultPassword"));
-            user.setRole(role);
+            //user.setRole(role);
 
             userRepository.save(user);
         }

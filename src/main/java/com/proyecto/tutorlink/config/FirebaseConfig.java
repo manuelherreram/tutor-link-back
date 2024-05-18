@@ -9,12 +9,12 @@ import java.io.InputStream;
 public class FirebaseConfig {
 
     public void initializeFirebase() {
-        try (InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream("path/to/your/firebase-key.json")) {
+        try (InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream("firebase-admin-sdk.json")) {
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
 
-            if (FirebaseApp.getApps().isEmpty()) { //<-- check with this line
+            if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
             }
         } catch (IOException e) {
