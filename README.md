@@ -1,25 +1,36 @@
-ULTIMA VERSION BACK TRABAJADA EN RAMA:  rodrigo
+**ULTIMA VERSION BACK EN RAMA** rodrigo
 
-- BackEnd despliega en el puerto 8080
-- Rutas: 
-- Obtener todos los profesores: GET localhost:8080/api/teachers/admin
-- Obtener 10 profesores al azar: GET localhost:8080/api/teachers/index
-- Buscar por id: GET localhost:8080/api/teachers/{id}
-- Guardar nuevo profesor: POST localhost:8080/api/teachers
-- Eliminar profesor: DELETE localhost:8080/api/teachers/{id}
-- Buscar profesore por categoría: GET  localhost:8080/api/teachers/bycategory?subject=matematicas
-- Obtener todos los usuarios registrados: GET localhost:8080/api/users/
-- Registrar un Nuevo Usuario POST localhost:8080/api/users/register
-- Obtener Usuario por ID GET localhost:8080/api/users/{id}
-- Eliminar Usuario por ID DELETE localhost:8080/api/users/{id}
+- BackEnd despliega en el puerto 8080  
+ 
+
+- **Rutas TEACHERS** 
+  - Obtener todos los profesores:   
+  localhost:8080/api/admin/teachers
+  - Obtener 10 profesores al azar:  
+  localhost:8080/api/public/index
+  - Buscar por id:  
+  localhost:8080/api/public/{id}
+  - Guardar nuevo profesor:  
+  localhost:8080/api/admin/teachers
+  - Eliminar profesor:  
+  localhost:8080/api/admin/teachers/{id}
+  - Buscar profesores por categoría (ej. matemáticas):    
+  - localhost:8080/api/public/teachers/category?subject=matematicas
+- **Rutas USERS**  
+ 
+  - Obtener todos los usuarios registrados:  
+  localhost:8080/api/public/users  
+    **POR AHORA SE MANTIENE EN RUTA PUBLICA**
+  
+**PENDIENTES:**
+- Obtener Usuario por ID
+- Eliminar Usuario por ID
  
 - Formato:  
 
 ![image](https://github.com/manuelherreram/tutor-link-back/assets/97056237/1b5c1927-5256-4ef8-a9e3-f0b52c33459a)
 
-![image](https://github.com/manuelherreram/tutor-link-back/assets/97056237/71d74de2-4f8e-47f6-b08e-b2224a025d58)
-
-- la base de datos temporal es H2 en MEM, se crea al levantar el back.
+- Base de datos temporal es H2 en MEM, se crea al levantar el back.
   url=jdbc:h2:mem:tutorlink  
   consola: localhost:8080/H2-console  
       user: sa  

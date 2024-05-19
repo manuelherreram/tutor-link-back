@@ -4,6 +4,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+
 import java.io.InputStream;
 
 @SpringBootApplication
@@ -11,6 +14,7 @@ public class TutorLinkApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TutorLinkApplication.class, args);
 		initializeFirebase();
+
 
 	}
 	private static void initializeFirebase() {
@@ -25,5 +29,9 @@ public class TutorLinkApplication {
 		} catch (Exception e) {
 			throw new IllegalStateException("Failed to initialize Firebase", e);
 		}
+	}
+	@EventListener(ApplicationReadyEvent.class)
+	public void applicationReady() {
+		System.out.println("\n \uD83C\uDF1F SERVER UP! - API READY TO USE ON PORT 8080. GO! \uD83D\uDE80");
 	}
 }

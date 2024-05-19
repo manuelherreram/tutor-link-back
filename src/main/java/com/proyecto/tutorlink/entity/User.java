@@ -28,19 +28,6 @@ public class User implements Serializable {
     @Size(max = 100, message = "Email must not exceed 100 characters")
     private String email;
 
-        /*
-    @Column(nullable = false, length = 255)
-    @NotBlank(message = "Password cannot be empty")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    private String password;
-        */
-    /*@Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private UserRole role;
-    public enum UserRole {
-        ADMIN, USER
-    }*/
-
     public User() {
     }
 
@@ -48,8 +35,6 @@ public class User implements Serializable {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        // this.password = password;
-        //this.role = role;
     }
 
     public Long getId() {

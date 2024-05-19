@@ -10,7 +10,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Arrays;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -19,36 +18,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .addFilterBefore(new FirebaseTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-                .cors().and()
-                .csrf().disable()
-                .cors().and() // Habilita CORS
-                .csrf().disable() // Deshabilita CSRF
                 .authorizeRequests()
+                .antMatchers("/api/public/**").permitAll() // público
+                .antMatchers("/api/user/**").hasRole("USER") // usuarios autenticados
+                .antMatchers("/api/admin/**").hasRole("ADMIN") // admins
                 .antMatchers("/h2-console/**", "/swagger-ui.html", "/v2/api-docs", "/swagger-resources/**", "/webjars/**").permitAll() // Permite acceso a Swagger UI y H2 console
-
-                .antMatchers("/api/teachers/admin").hasRole("ADMIN") // Requiere rol ADMIN para acceder a /api/teachers/admin
-
-                .antMatchers("/api/teachers/**").permitAll() // Permite acceso a todos los endpoints de /api/teachers
-                .antMatchers("/api/users/**").permitAll() // Permite acceso a todos los endpoints de /api/users
-                .anyRequest().authenticated() // Requiere autenticación para cualquier otro request
+                .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
                 .and()
-                .headers().frameOptions().disable(); // Permite frames para la consola H2
+                .headers()
+                .frameOptions().disable()
+                .and()
+                .cors().and().csrf().disable()
+                .formLogin()
+                .and()
+                .httpBasic();
     }
-/*
-@Override
-protected void configure(HttpSecurity http) throws Exception {
-    http
-            .addFilterBefore(new FirebaseTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-            .cors().and().csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/api/admin/**").hasRole("ADMIN")  // Solo los ADMIN pueden acceder
-            .antMatchers("/api/users/**").hasRole("USER")   // Solo los USERS pueden acceder
-            .anyRequest().authenticated()
-            .and()
-            .cors().configurationSource(corsConfigurationSource());
-}
-
- */
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -61,7 +45,6 @@ protected void configure(HttpSecurity http) throws Exception {
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(false);
         configuration.setAllowedOriginPatterns(Arrays.asList("http://*", "https://*"));
-        // Usa patrones para permitir cualquier origen seguro
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

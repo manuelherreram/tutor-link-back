@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/teachers")
+@RequestMapping("/api")
 @CrossOrigin(origins = "*")
 
 public class TeacherController {
@@ -21,14 +21,14 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
-    @GetMapping("/admin")
+    @GetMapping("/admin/teachers")
     public ResponseEntity<List<Teacher>> getAllTeachers() {
         List<Teacher> teachers = teacherService.getAllTeachers();
         logger.info("Retrieved all teachers");
         return ResponseEntity.ok(teachers);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/{id}")
     public ResponseEntity<?> getTeacherById(@PathVariable Long id) {
         try {
             Teacher teacher = teacherService.getTeacherById(id);
@@ -39,18 +39,18 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @GetMapping("/index")
+    @GetMapping("/public/index")
     public ResponseEntity<List<Teacher>> getRandomTeachers() {
         List<Teacher> randomTeachers = teacherService.getRandomTeachers();
         return ResponseEntity.ok(randomTeachers);
     }
-    @GetMapping("/bycategory")
+    @GetMapping("/public/teachers/category")
     public ResponseEntity<List<Teacher>> getTeachersBySubject(@RequestParam String subject) {
         List<Teacher> teachers = teacherService.getTeachersBySubject(subject);
         return ResponseEntity.ok(teachers);
     }
 
-    @PostMapping
+    @PostMapping("/admin/teachers")
     public ResponseEntity<?> addTeacher(@RequestBody Teacher teacher) {
         try {
             Teacher savedTeacher = teacherService.addTeacher(teacher);
@@ -61,7 +61,7 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/teachers/{id}")
     public ResponseEntity<?> deleteTeacherById(@PathVariable Long id) {
         try {
             teacherService.deleteTeacherById(id);

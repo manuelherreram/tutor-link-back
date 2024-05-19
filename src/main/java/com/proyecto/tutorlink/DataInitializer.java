@@ -81,33 +81,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             imageRepository.save(new Image("https://images.unsplash.com/photo-1597570889212-97f48e632dad?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 4 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/photo-1555436169-20e93ea9a7ff?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 5 del Profesor", savedTeacher));
         });
-
-        // Crear usuarios de prueba
-            if (userRepository.count() == 0) {
-                initializeUsers();
-            }
-        }
-
-        private void initializeUsers() {
-            // Crear usuarios de prueba
-            createUser("John", "Doe", "john.doe@example.com");
-            createUser("Jane", "Doe", "jane.doe@example.com");
-            // Añadir más usuarios según sea necesario
-        }
-
-        private void createUser(String name, String lastName, String email) {
-            User user = new User();
-            user.setName(name);
-            user.setLastName(lastName);
-            user.setEmail(email);
-
-            // user.setPassword(passwordEncoder.encode("defaultPassword"));
-            //user.setRole(role);
-
-            userRepository.save(user);
-        }
-
-
     }
+}
 
 
