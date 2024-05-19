@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutionException;
 @RestController
 public class UserController {
 
-    @GetMapping("/api/public/users")
+    @GetMapping("/api/user/users")
     public List<UserRecord> getAllUsers() throws ExecutionException, InterruptedException, FirebaseAuthException {
         List<UserRecord> users = new ArrayList<>();
         ListUsersPage page = FirebaseAuth.getInstance().listUsers(null);
@@ -24,5 +24,6 @@ public class UserController {
         }
         return users;
     }
+
     //service pendiente
 }

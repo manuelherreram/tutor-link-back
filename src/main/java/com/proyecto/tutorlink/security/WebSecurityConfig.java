@@ -9,6 +9,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Arrays;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.proyecto.tutorlink.security.FirebaseTokenFilter;
 
 @Configuration
 @EnableWebSecurity
