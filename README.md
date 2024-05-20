@@ -39,16 +39,6 @@ El token se obtiene al loguearse en la aplicación front-end.
 
 Los roles estan definidos en letras MAYUSCULAS  
 
-Hay dos usuarios creados para propósito de Testing:
-- email:rofaba@gmail.com
-- password:qwerty
-- rol: ADMIN  
-  
-
-- email:testuser@gmail.com
-- password:qwerty
-- rol: USER  
-
 **Formato para teacher**  
 
 ![image](https://github.com/manuelherreram/tutor-link-back/assets/97056237/1b5c1927-5256-4ef8-a9e3-f0b52c33459a)
