@@ -21,31 +21,33 @@
   localhost:8080/api/user/users  
 
 - **OTRAS**
-  - Agregar un nuevo subject (categorias) , solo ADMIN:
+  - Agregar un nuevo subject (categorias) , solo ADMIN:  
+   
     localhost:8080/api/admin/subjects/add
  ![img_1.png](img_1.png) 
-  - 
-  - Editar el subject (categorias) de un profesor, solo ADMIN:
+   
+  - Editar el subject (categorias) de un profesor, solo ADMIN:  
+  
     localhost:8080/api/admin/teachers/{id}  
 
    ![img.png](img.png) 
   
 **IMPORTANTE:**  
 Para acceder a las rutas user y admin se requiere tener el usuario disponga del rol respectivo en firebase.  
-para ello se debe enviar el token de autenticación en el header de la petición
-Los roles estan definidos en letras MAYUSCULAS  
+para ello se debe enviar el token de autenticación en el header de la petición.  
+El token se obtiene al loguearse en la aplicación front-end.  
 
+Los roles estan definidos en letras MAYUSCULAS  
 
 Hay dos usuarios creados para propósito de Testing:
 - email:rofaba@gmail.com
 - password:qwerty
 - rol: ADMIN  
- 
+  
 
 - email:testuser@gmail.com
 - password:qwerty
 - rol: USER  
- 
 
 **Formato para teacher**  
 
