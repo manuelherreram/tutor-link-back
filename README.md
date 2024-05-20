@@ -12,8 +12,9 @@
   localhost:8080/api/admin/teachers
   - Eliminar profesor:  
   localhost:8080/api/admin/teachers/{id}
-  - Buscar profesores por categoría (ej. matemáticas):    
-  localhost:8080/api/public/teachers/category?subject=matematicas
+  - Buscar profesores por categoría(s) (ej. Matemáticas, Historia):    
+    localhost:8080/api/public/teachers/category?subjects=Matematicas,Historia  
+    
 - **Rutas USERS**  
  
   - Obtener todos los usuarios registrados:  

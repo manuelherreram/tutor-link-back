@@ -33,7 +33,6 @@ public class TeacherService {
                 image.setTeacher(teacher); // Establecer la relación
             }
         }
-
         // Asociar el Subject existente o crear uno nuevo
         Subject subject = teacher.getSubject();
         if (subject != null) {
@@ -61,13 +60,13 @@ public class TeacherService {
         }
         List<Teacher> randomTeachers = new ArrayList<>(teachers);
         Collections.shuffle(randomTeachers); // Mezcla aleatoriamente la lista de profesores
-        return randomTeachers.subList(0, count); // Devuelve los primeros 10 mezclados
+        return randomTeachers.subList(0, count); // Devuelve los primeros 10
     }
     public Teacher getTeacherById(Long id) throws CustomException {
         return teacherRepository.findById(id).orElseThrow(() -> new CustomException("Teacher not found"));
     }
-    public List<Teacher> getTeachersBySubject(String subjectTitle) {
-        return teacherRepository.findBySubjectTitle(subjectTitle);
+    public List<Teacher> getTeachersBySubjects(List<String> subjectTitles) {
+        return teacherRepository.findBySubjectTitleIn(subjectTitles);
     }
 
     public void deleteTeacherById(Long id) throws CustomException {

@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     boolean existsByDni(String dni);
-    List<Teacher> findBySubjectTitle(String subjectTitle);
+    List<Teacher> findBySubjectTitleIn(List<String> subjectTitles);
+
+
 
 }
