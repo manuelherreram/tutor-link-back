@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.entity.Image;
-import com.proyecto.tutorlink.entity.User;
-import com.proyecto.tutorlink.repository.UserRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.repository.ImageRepository;
 
@@ -23,9 +21,6 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private TeacherRepository teacherRepository;
     @Autowired
     private ImageRepository imageRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private  SubjectRepository subjectRepository;

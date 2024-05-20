@@ -1,8 +1,9 @@
 package com.proyecto.tutorlink.controller;
+import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.service.TeacherService;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+
     @GetMapping("/admin/teachers")
     public ResponseEntity<List<Teacher>> getAllTeachers() {
         List<Teacher> teachers = teacherService.getAllTeachers();
@@ -39,11 +41,13 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/public/index")
     public ResponseEntity<List<Teacher>> getRandomTeachers() {
         List<Teacher> randomTeachers = teacherService.getRandomTeachers();
         return ResponseEntity.ok(randomTeachers);
     }
+
     @GetMapping("/public/teachers/category")
     public ResponseEntity<List<Teacher>> getTeachersBySubjects(@RequestParam List<String> subjects) {
         List<Teacher> teachers = teacherService.getTeachersBySubjects(subjects);
@@ -61,6 +65,7 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @DeleteMapping("/admin/teachers/{id}")
     public ResponseEntity<?> deleteTeacherById(@PathVariable Long id) {
         try {
@@ -69,6 +74,17 @@ public class TeacherController {
         } catch (CustomException e) {
             return ResponseEntity.notFound().build();
         }
+    }
 
-}
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/admin/teachers/{id}")
+    public ResponseEntity<?> updateTeacher(@PathVariable Long id, @RequestBody Teacher teacher) {
+        try {
+            Teacher updatedTeacher = teacherService.updateTeacher(id, teacher);
+            return ResponseEntity.ok(updatedTeacher);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

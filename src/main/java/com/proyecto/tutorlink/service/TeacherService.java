@@ -8,11 +8,9 @@ import com.proyecto.tutorlink.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.*;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+
 
 @Service
 public class TeacherService {
@@ -74,5 +72,28 @@ public class TeacherService {
             throw new CustomException("Teacher not found");
         }
         teacherRepository.deleteById(id);
+    }
+    //actualizar un profesor (nombre, dni, descripción, subject)
+    // NOTA: ESTE METODO NO ACTUALIZA LAS IMAGENES
+    // SI SE REQUIERE SE PODRIA IMPLEMENTAR EN UN METODO PROPIO
+
+    @Transactional
+    public Teacher updateTeacher(Long teacherId, Teacher updatedTeacherData) {
+        Teacher teacher = teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new RuntimeException("Teacher not found with id " + teacherId));
+
+        teacher.setName(updatedTeacherData.getName());
+        teacher.setDni(updatedTeacherData.getDni());
+        teacher.setDescription(updatedTeacherData.getDescription());
+
+        // Manejo de Subject
+        if (updatedTeacherData.getSubject() != null && updatedTeacherData.getSubject().getTitle() != null) {
+            String subjectTitle = updatedTeacherData.getSubject().getTitle();
+            Subject subject = subjectRepository.findByTitle(subjectTitle)
+                    .orElseThrow(() -> new RuntimeException("Subject with title '" + subjectTitle + "' does not exist"));
+            teacher.setSubject(subject);
+        }
+
+        return teacherRepository.save(teacher);
     }
 }
