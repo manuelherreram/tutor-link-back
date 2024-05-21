@@ -1,5 +1,7 @@
 package com.proyecto.tutorlink;
+import com.proyecto.tutorlink.entity.Characteristic;
 import com.proyecto.tutorlink.entity.Subject;
+import com.proyecto.tutorlink.repository.CharacteristicRepository;
 import com.proyecto.tutorlink.repository.SubjectRepository;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -25,6 +27,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private  SubjectRepository subjectRepository;
 
+    @Autowired
+    private CharacteristicRepository characteristicRepository;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (teacherRepository.count() == 0) {
@@ -42,6 +47,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         subjectRepository.save(subjectM);
         subjectRepository.save(subjectH);
         subjectRepository.save(subjectG);
+
+
 
         teachers.add(new Teacher("Marcelo Díaz", "100001", "Experto en métodos educativos innovadores y tecnologías de aprendizaje.", subjectH));
         teachers.add(new Teacher("Lucía Fernández", "100002", "Amplia experiencia en educación primaria y desarrollo infantil.", subjectG));
@@ -70,12 +77,14 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         teachers.forEach(teacher -> {
             Teacher savedTeacher = teacherRepository.save(teacher);
+            characteristicRepository.save(new Characteristic("Certificado", "Ingles", "Clases de Prueba", "Super Profe", "Materiales del curso", "Cualquier cosa"));
             imageRepository.save(new Image("https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 1 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/photo-1512238972088-8acb84db0771?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 2 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/flagged/photo-1550946107-8842ae9426db?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 3 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/photo-1597570889212-97f48e632dad?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 4 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/photo-1555436169-20e93ea9a7ff?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 5 del Profesor", savedTeacher));
         });
+
     }
 }
 

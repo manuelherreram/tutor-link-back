@@ -3,6 +3,7 @@ package com.proyecto.tutorlink.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,15 +31,20 @@ public class Teacher {
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "characteristic_id", referencedColumnName = "id")
+    private Characteristic characteristic;
+
+
     public Teacher() {
     }
 
-    public Teacher(Long id, String name, String dni, String description, List<Image> images, Subject subject) {
+    public Teacher(Long id, String name, String dni, String description, Subject subject) {
         this.id = id;
         this.name = name;
         this.dni = dni;
         this.description = description;
-        this.images = images;
         this.subject = subject;
     }
 
@@ -48,6 +54,8 @@ public class Teacher {
         this.description = description;
         this.subject = subject;
     }
+
+
 
     // Getters y setters
     public List<Image> getImages() {
@@ -96,5 +104,13 @@ public class Teacher {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
+    }
+
+    public Characteristic getCharacteristic() {
+        return characteristic;
+    }
+
+    public void setCharacteristic(Characteristic characteristic) {
+        this.characteristic = characteristic;
     }
 }
