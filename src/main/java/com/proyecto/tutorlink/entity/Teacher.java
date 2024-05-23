@@ -52,11 +52,12 @@ public class Teacher {
         this.subject = subject;
     }
 
-    public Teacher(String name, String dni, String description, Subject subject) {
+    public Teacher(String name, String dni, String description, Subject subject, List<Characteristic> characteristics) {
         this.name = name;
         this.dni = dni;
         this.description = description;
         this.subject = subject;
+        this.characteristics = characteristics;
     }
 
 
