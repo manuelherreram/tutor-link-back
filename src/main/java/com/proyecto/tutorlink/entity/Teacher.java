@@ -32,9 +32,13 @@ public class Teacher {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "characteristic_id", referencedColumnName = "id")
-    private Characteristic characteristic;
+    @ManyToMany
+    @JoinTable(
+            name = "teacher_characteristic",
+            joinColumns = @JoinColumn(name = "teacher_id"),
+            inverseJoinColumns = @JoinColumn(name = "characteristic_id")
+    )
+    private List<Characteristic> characteristics = new ArrayList<>();
 
 
     public Teacher() {
@@ -106,11 +110,15 @@ public class Teacher {
         this.subject = subject;
     }
 
-    public Characteristic getCharacteristic() {
-        return characteristic;
+    public List<Characteristic> getCharacteristics() {
+        return characteristics;
     }
 
-    public void setCharacteristic(Characteristic characteristic) {
-        this.characteristic = characteristic;
+    public void setCharacteristics(List<Characteristic> characteristics) {
+        this.characteristics = characteristics;
+    }
+
+    public void addCharacteristic(Characteristic characteristic) {
+        this.characteristics.add(characteristic);
     }
 }

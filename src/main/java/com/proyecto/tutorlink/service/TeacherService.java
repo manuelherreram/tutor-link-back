@@ -102,4 +102,18 @@ public class TeacherService {
         return teacherRepository.save(teacher);
 
     }
+
+    @Transactional
+    public void createTeacherWithCharacteristics(Teacher teacher, List<Characteristic> characteristicIds) {
+
+
+        for (Characteristic characteristicas : characteristicIds) {
+
+            long id = characteristicas.getId();
+            Optional<Characteristic> characteristic = characteristicRepository.findById(id);
+            characteristic.ifPresent(teacher::addCharacteristic);
+        }
+
+        teacherRepository.save(teacher);
+    }
 }

@@ -3,6 +3,7 @@ import com.proyecto.tutorlink.entity.Characteristic;
 import com.proyecto.tutorlink.entity.Subject;
 import com.proyecto.tutorlink.repository.CharacteristicRepository;
 import com.proyecto.tutorlink.repository.SubjectRepository;
+import com.proyecto.tutorlink.service.TeacherService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,10 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private CharacteristicRepository characteristicRepository;
 
+    @Autowired
+    private TeacherService teacherService;
+
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (teacherRepository.count() == 0) {
@@ -47,6 +52,18 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         subjectRepository.save(subjectM);
         subjectRepository.save(subjectH);
         subjectRepository.save(subjectG);
+
+        Characteristic certificacion = new Characteristic("Licenciado en Educacion");
+        Characteristic idiomas = new Characteristic("Ingles");
+
+        characteristicRepository.save(certificacion);
+        characteristicRepository.save(idiomas);
+
+        List<Characteristic> characteristics = new ArrayList<>();
+        characteristics.add(certificacion);
+        characteristics.add(idiomas);
+
+
 
 
 
@@ -77,7 +94,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
         teachers.forEach(teacher -> {
             Teacher savedTeacher = teacherRepository.save(teacher);
-            characteristicRepository.save(new Characteristic("Certificado", "Ingles", "Clases de Prueba", "Super Profe", "Materiales del curso", "Cualquier cosa"));
+            teacherService.createTeacherWithCharacteristics(savedTeacher, characteristics);
             imageRepository.save(new Image("https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 1 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/photo-1512238972088-8acb84db0771?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 2 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/flagged/photo-1550946107-8842ae9426db?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 3 del Profesor", savedTeacher));
