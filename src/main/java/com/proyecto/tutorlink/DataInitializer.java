@@ -35,9 +35,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private void initializeData() {
         List<Teacher> teachers = new ArrayList<>();
 
-        Subject subjectM = new Subject(1L,"Matematicas");
-        Subject subjectH = new Subject(2L,"Historia");
-        Subject subjectG = new Subject(3L,"Geografia");
+        Subject subjectM = new Subject("Matematicas");
+        Subject subjectH = new Subject("Historia");
+        Subject subjectG = new Subject("Geografia");
 
         subjectRepository.save(subjectM);
         subjectRepository.save(subjectH);

@@ -37,9 +37,4 @@ public class Subject {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public Subject(Long id, String title) {
-        this.id = id;
-        this.title = title;
-    }
 }
