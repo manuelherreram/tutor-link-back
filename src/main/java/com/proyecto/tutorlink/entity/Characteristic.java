@@ -1,5 +1,10 @@
 package com.proyecto.tutorlink.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,6 +20,8 @@ public class Characteristic {
     private String name;
 
     @ManyToMany(mappedBy = "characteristics")
+    @ToStringExclude
+    @JsonIgnore
     private List<Teacher> teachers;
 
     public Characteristic() {

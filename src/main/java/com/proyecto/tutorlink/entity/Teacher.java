@@ -1,5 +1,8 @@
 package com.proyecto.tutorlink.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,7 +35,7 @@ public class Teacher {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "teacher_characteristic",
             joinColumns = @JoinColumn(name = "teacher_id"),
