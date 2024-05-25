@@ -1,8 +1,10 @@
 package com.proyecto.tutorlink.service;
+import com.proyecto.tutorlink.entity.Characteristic;
 import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Subject;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
+import com.proyecto.tutorlink.repository.CharacteristicRepository;
 import com.proyecto.tutorlink.repository.SubjectRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class TeacherService {
     private TeacherRepository teacherRepository;
     @Autowired
     private SubjectRepository subjectRepository;
+
+    @Autowired
+    private CharacteristicRepository characteristicRepository;
 
     @Transactional
 
@@ -95,5 +100,20 @@ public class TeacherService {
         }
 
         return teacherRepository.save(teacher);
+
+    }
+
+    @Transactional
+    public void createTeacherWithCharacteristics(Teacher teacher, List<Characteristic> characteristicIds) {
+
+
+        for (Characteristic characteristicas : characteristicIds) {
+
+            long id = characteristicas.getId();
+            Optional<Characteristic> characteristic = characteristicRepository.findById(id);
+            characteristic.ifPresent(teacher::addCharacteristic);
+        }
+
+        teacherRepository.save(teacher);
     }
 }
