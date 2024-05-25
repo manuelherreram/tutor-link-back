@@ -19,6 +19,8 @@ public class Characteristic {
     @Column
     private String name;
 
+    @Column
+    private String url;
     @ManyToMany(mappedBy = "characteristics")
     @ToStringExclude
     @JsonIgnore
@@ -31,6 +33,10 @@ public class Characteristic {
         this.name = name;
     }
 
+    public Characteristic(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
 
     public Long getId() {
         return id;
@@ -54,5 +60,13 @@ public class Characteristic {
 
     public void setTeachers(List<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

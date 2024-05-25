@@ -45,7 +45,24 @@ public class TeacherService {
         } else {
             throw new IllegalStateException("Subject must be provided");
         }
+        //asociar characteristic
 
+        List<Characteristic> characteristic = teacher.getCharacteristics();
+        /*List<Characteristic> characteristicAsignados= new ArrayList<>();
+        if (characteristic != null)
+        {
+        for (Characteristic characteristics : characteristic) {
+            Characteristic existingCharacteristic = characteristicRepository
+                    .findById(characteristics.getId())
+                    .orElse(characteristics);
+            characteristicAsignados.add(existingCharacteristic);
+            teacher.setCharacteristics(characteristicAsignados);
+        }
+        } else {throw new IllegalStateException("Characteristic must be provided");}*/
+        if (characteristic != null)
+        {
+            teacher.setCharacteristics(characteristic);
+        }
         return teacherRepository.save(teacher);
     }
     public List<Teacher> getAllTeachers() {
