@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/admin/subjects")
 public class SubjectController {
@@ -23,6 +25,15 @@ public class SubjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("An error occurred while adding the subject");
+        }
+    }
+    @GetMapping("/list")
+    public ResponseEntity<List<Subject>> getAllSubjects() {
+        try {
+            List<Subject> subjects = subjectService.getAllSubjects();
+            return ResponseEntity.ok(subjects);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(null);
         }
     }
 }

@@ -20,11 +20,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilterBefore(new FirebaseTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/api/public/**").permitAll() // público
-                .antMatchers("/api/user/**").hasRole("USER") // usuarios autenticados
-                .antMatchers("/api/admin/**").hasRole("ADMIN") // admins
-                .antMatchers("/h2-console/**", "/swagger-ui.html", "/v2/api-docs", "/swagger-resources/**", "/webjars/**").permitAll() // Permite acceso a Swagger UI y H2 console
-                .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
+                .antMatchers("/h2-console/**", "/swagger-ui/**", "/v2/api-docs", "/swagger-resources/**", "/webjars/**").permitAll()
+                .antMatchers("/api/public/**").permitAll()
+                .antMatchers("/api/user/**").hasRole("USER")
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
                 .headers()
                 .frameOptions().disable()
