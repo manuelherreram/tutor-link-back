@@ -2,24 +2,55 @@
 - BackEnd despliega en el puerto 8080  
  
 - **Rutas TEACHERS** 
-  - Obtener todos los profesores:   
-  localhost:8080/api/admin/teachers
+  - Obtener todos los profesores ADMIN:   
+  localhost:8080/api/admin/teachers  
+   
   - Obtener 10 profesores al azar:  
-  localhost:8080/api/public/index
+  localhost:8080/api/public/index  
+   
   - Buscar por id:  
-  localhost:8080/api/public/{id}
-  - Guardar nuevo profesor:  
-  localhost:8080/api/admin/teachers
-  - Eliminar profesor:  
-  localhost:8080/api/admin/teachers/{id}
+  localhost:8080/api/public/{id}  
+   
+  - Guardar nuevo profesor ADMIN:  
+  localhost:8080/api/admin/teachers  
+   
+  - Eliminar profesor ADMIN:  
+  localhost:8080/api/admin/teachers/{id}  
+   
   - Buscar profesores por categoría(s) (ej. Matemáticas, Historia):    
     localhost:8080/api/public/teachers/category?subjects=Matematicas,Historia  
-    
-- **Rutas USERS**  
+   
+     
+  - **RUTAS USUARIOS**  
  
-  - Obtener todos los usuarios registrados:  
-  localhost:8080/api/user/users  
-
+    - Obtener todos los usuarios registrados (ADMIN):  
+    localhost:8080/api/admin/users  
+   
+    - Crear usuario nuevo (ADMIN), se crean con rol USER por defecto.
+      localhost:8080/api/public/createuser  
+      Body:  
+       {  
+       "email": "",  
+       "password": "",  
+       "firstName": "",  
+       "lastName": "",  
+       }
+     
+    - Login usuario:
+    localhost:8080/api/public/login
+      Body:  
+      {  
+      "email": "",  
+      "password": ""  
+      }  
+    - Setear el rol de un usuario (ADMIN):
+      localhost:8080/api/admin/set-role
+      Body:
+        { 
+        "uid":"",
+        "role":""
+        }
+      
 - **OTRAS**
   - Agregar un nuevo subject (categorias) , solo ADMIN:  
    
@@ -31,17 +62,6 @@
     localhost:8080/api/admin/teachers/{id}  
 
    ![img.png](img.png) 
-  
-**IMPORTANTE:**  
-Para acceder a las rutas user y admin se requiere tener el usuario disponga del rol respectivo en firebase.  
-para ello se debe enviar el token de autenticación en el header de la petición.  
-El token se obtiene al loguearse en la aplicación front-end.  
-
-Los roles estan definidos en letras MAYUSCULAS  
-
-**Formato para teacher**  
-
-![image](https://github.com/manuelherreram/tutor-link-back/assets/97056237/1b5c1927-5256-4ef8-a9e3-f0b52c33459a)
 
 - Base de datos temporal es H2 en MEM, se crea al levantar el back.
   url=jdbc:h2:mem:tutorlink  

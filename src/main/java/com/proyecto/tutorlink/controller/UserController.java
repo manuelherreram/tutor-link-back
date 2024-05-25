@@ -109,35 +109,6 @@ public class UserController {
         public String getLastName() { return lastName; }
         public void setLastName(String lastName) { this.lastName = lastName; }
     }
-    @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody UserLoginRequest request) {
-        try {
-            String token = userService.loginUser(request.getEmail(), request.getPassword());
-            return ResponseEntity.ok().body(token);
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
-        }
-    }
 
-    static class UserLoginRequest {
-        private String email;
-        private String password;
-
-        // Getters and setters
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-    }
 }
+
