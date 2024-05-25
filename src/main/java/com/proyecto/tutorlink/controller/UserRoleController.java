@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/public")
+@RequestMapping("/api/admin")
 public class UserRoleController {
 
-    @PutMapping("/set-user-role")
+    @PutMapping("/set-role")
     public String setUserRole(@RequestBody UserRoleRequest request) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", request.getRole());
@@ -32,4 +32,4 @@ public class UserRoleController {
         public String getRole() { return role; }
         public void setRole(String role) { this.role = role; }
     }
-}
+ }
