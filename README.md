@@ -52,6 +52,10 @@
         }
       
 - **OTRAS**
+  - Lista las categorías (subjects) disponibles. Req. rol ADMIN:
+    localhost:8080/api/admin/subjects/list  
+  
+ 
   - Agregar un nuevo subject (categorias) , solo ADMIN:  
    
     localhost:8080/api/admin/subjects/add
