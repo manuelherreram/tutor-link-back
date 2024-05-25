@@ -1,12 +1,12 @@
 package com.proyecto.tutorlink.controller;
+
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
 import com.proyecto.tutorlink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,6 +26,7 @@ public class UserController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(users);
     }
+//DTO TEMPORAL - NECESARIAMENTE DEBE SER UNA CLASE SEPARADA
 
     private UserDto convertToDto(UserRecord userRecord) {
         UserDto dto = new UserDto();
@@ -43,8 +44,6 @@ public class UserController {
 
         return dto;
     }
-
-
     static class UserDto {
         private String uid;
         private String email;
@@ -83,5 +82,31 @@ public class UserController {
         public void setRole(String role) {
             this.role = role;
         }
+    }
+    @PostMapping("/createuser")
+    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest request) {
+        try {
+            UserRecord userRecord = userService.createUser(request.getEmail(), request.getPassword(), request.getFirstName(), request.getLastName());
+            return ResponseEntity.ok("User registered successfully with UID: " + userRecord.getUid());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
+        }
+    }
+
+    static class UserRegistrationRequest {
+        private String email;
+        private String password;
+        private String firstName;
+        private String lastName;
+
+        // Getters and setters
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+        public String getFirstName() { return firstName; }
+        public void setFirstName(String firstName) { this.firstName = firstName; }
+        public String getLastName() { return lastName; }
+        public void setLastName(String lastName) { this.lastName = lastName; }
     }
 }
