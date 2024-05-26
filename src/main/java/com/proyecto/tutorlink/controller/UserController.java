@@ -12,13 +12,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/admin/users")
     public ResponseEntity<List<UserDto>> getAllUsers() throws FirebaseAuthException {
         List<UserRecord> userRecords = userService.getAllUsers();
         List<UserDto> users = userRecords.stream()
@@ -83,7 +83,7 @@ public class UserController {
             this.role = role;
         }
     }
-    @PostMapping("/createuser")
+    @PostMapping("/public/createuser")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest request) {
         try {
             UserRecord userRecord = userService.createUser(request.getEmail(), request.getPassword(), request.getFirstName(), request.getLastName());

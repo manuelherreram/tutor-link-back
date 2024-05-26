@@ -26,7 +26,7 @@
     - Obtener todos los usuarios registrados (ADMIN):  
     localhost:8080/api/admin/users  
    
-    - Crear usuario nuevo (ADMIN), se crean con rol USER por defecto.
+    - Crear usuario nuevo, se crean con rol USER por defecto.
       localhost:8080/api/public/createuser  
       Body:  
        {  
