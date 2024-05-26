@@ -33,7 +33,11 @@
        "email": "",  
        "password": "",  
        "firstName": "",  
-       "lastName": "",  
+       "lastName": "",
+         "phone": "",
+            "city": "",
+    - 
+    - 
        }
      
     - Login usuario:
