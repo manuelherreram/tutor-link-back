@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin/subjects")
-public class SubjectController {
+public class SubjectAdminController {
 
     @Autowired
     private SubjectService subjectService;
@@ -27,13 +27,5 @@ public class SubjectController {
             return ResponseEntity.internalServerError().body("An error occurred while adding the subject");
         }
     }
-    @GetMapping("/list")
-    public ResponseEntity<List<Subject>> getAllSubjects() {
-        try {
-            List<Subject> subjects = subjectService.getAllSubjects();
-            return ResponseEntity.ok(subjects);
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(null);
-        }
-    }
+
 }

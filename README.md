@@ -52,7 +52,7 @@
         }
       
 - **OTRAS**
-  - Lista las categorías (subjects) disponibles. Req. rol ADMIN:
+  - Lista las categorías (subjects) disponibles.:
     localhost:8080/api/admin/subjects/list  
   
  
