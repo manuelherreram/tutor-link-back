@@ -13,6 +13,8 @@ public class Subject {
     @Column(length = 50)
     private String title;
 
+    private String url;
+
     @OneToMany(mappedBy = "subject")
     private List<Teacher> teachers;
     public Subject() {
@@ -36,5 +38,13 @@ public class Subject {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

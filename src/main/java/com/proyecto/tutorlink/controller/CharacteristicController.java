@@ -2,10 +2,13 @@ package com.proyecto.tutorlink.controller;
 
 import com.proyecto.tutorlink.entity.Characteristic;
 
+import com.proyecto.tutorlink.entity.Teacher;
+import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.service.CharacteristicService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +36,33 @@ import java.util.List;
             }
         }
 
-        /*@GetMapping("/admin/characteristic")
-        public ResponseEntity<List<Characteristic>> getAllTeachers() {
-            List<Characteristic> characteristics = characteristicService.getAllCharacteristic();
+        @GetMapping("/list")
+        public ResponseEntity<List<Characteristic>> getAllCharacteristics() {
+            List<Characteristic> characteristics = characteristicService.getAllCharacteristics();
             logger.info("Retrieved all characteristics");
             return ResponseEntity.ok(characteristics);
-        }*/
+        }
+
+        @GetMapping("/{id}")
+        public ResponseEntity<?> getCharacteristicById(@PathVariable Long id) {
+            try {
+                Characteristic characteristic = characteristicService.getCharacteristicById(id);
+                logger.info("Retrieved characteristic: {}", characteristic);
+                return ResponseEntity.ok(characteristic);
+            } catch (CustomException e) {
+                logger.error("Error retrieving characteristic:", e.getMessage());
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }
+
+        @PutMapping("/actualizar")
+        public Characteristic actualizarCharacteristic(@RequestBody Characteristic characteristic){
+            return characteristicService.actualizarCharacteristic(characteristic);
+        }
+
+        @DeleteMapping("eliminar/{id}")
+        public ResponseEntity<?> deleteCharacteristic(@PathVariable Long id) throws CustomException {
+            characteristicService.deleteCharacteristic(id);
+            return new ResponseEntity<>("Characteristic eliminado correctamente", HttpStatus.OK);
+        }
     }

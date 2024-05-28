@@ -7,4 +7,7 @@ import java.util.Optional;
 
 public interface CharacteristicRepository extends JpaRepository<Characteristic, Long> {
     Characteristic findByName(String name);
+
+    boolean existsByName(String name);
+
 }
