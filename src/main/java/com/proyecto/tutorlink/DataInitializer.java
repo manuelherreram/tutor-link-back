@@ -53,12 +53,12 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         subjectRepository.save(subjectH);
         subjectRepository.save(subjectG);
 
-        Characteristic certificacion = new Characteristic("Licenciado en Educacion");
-        Characteristic idiomas = new Characteristic("Ingles");
-        Characteristic clasePrueba = new Characteristic("Clase de Prueba");
-        Characteristic clasesPresenciales = new Characteristic("Clases Presenciales");
-        Characteristic clasesGrupales = new Characteristic("Clases Grupales");
-        Characteristic superProfesor = new Characteristic("SuperProfe");
+        Characteristic certificacion = new Characteristic("Licenciado en Educacion", "https://static.thenounproject.com/png/3849525-200.png");
+        Characteristic idiomas = new Characteristic("Ingles", "http://127.0.0.1:5500/prueba.html");
+        Characteristic clasePrueba = new Characteristic("Clase de Prueba", "https://static.thenounproject.com/png/31658-200.png");
+        Characteristic clasesPresenciales = new Characteristic("Clases Presenciales", "https://static.thenounproject.com/png/6407-200.png");
+        Characteristic clasesGrupales = new Characteristic("Clases Grupales", "https://static.thenounproject.com/png/3370603-200.png");
+        Characteristic superProfesor = new Characteristic("SuperProfe", "https://static.thenounproject.com/png/3124376-200.png");
 
         characteristicRepository.save(certificacion);
         characteristicRepository.save(idiomas);
