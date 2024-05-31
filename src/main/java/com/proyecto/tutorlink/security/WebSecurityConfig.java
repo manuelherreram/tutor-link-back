@@ -21,11 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilterBefore(new FirebaseTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/h2-console/**", "/swagger-ui/**", "/v2/api-docs", "/swagger-resources/**", "/webjars/**").permitAll()
+                .antMatchers("/h2-console/**", "/webjars/**").permitAll()
+                .antMatchers("/swagger-ui/**", "/v2/api-docs", "/swagger-resources/**").permitAll()
                 .antMatchers("/api/public/**").permitAll()
                 .antMatchers("/api/user/**").hasRole("USER")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
                 .and()
                 .headers()
                 .frameOptions().disable()
