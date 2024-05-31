@@ -119,5 +119,9 @@ public class UserService {
     public UserRecord getUser(String uid) throws FirebaseAuthException {
         return FirebaseAuth.getInstance().getUser(uid);
     }
+    //getuserbyId
+    public User getUserByUid(String uid) {
+        return userRepository.findByUID(uid).orElse(null);
+    }
 }
 
