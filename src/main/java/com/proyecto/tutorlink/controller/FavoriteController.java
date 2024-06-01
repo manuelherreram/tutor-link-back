@@ -1,4 +1,5 @@
 package com.proyecto.tutorlink.controller;
+
 import com.proyecto.tutorlink.entity.Favorite;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.entity.User;
@@ -24,42 +25,56 @@ public class FavoriteController {
     private TeacherService teacherService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addFavorite(@RequestBody FavoriteRequest favoriteRequest) throws CustomException {
-        User user = userService.getUserByUid(favoriteRequest.getUserId());
-        Teacher teacher = teacherService.getTeacherById(favoriteRequest.getTeacherId());
-        if (user != null && teacher != null) {
-            Favorite favorite = favoriteService.addFavorite(user, teacher);
-            return ResponseEntity.ok(favorite);
-        } else {
-            return ResponseEntity.badRequest().body("Invalid user or teacher ID");
+    public ResponseEntity<?> addFavorite(@RequestBody FavoriteRequest favoriteRequest) {
+        try {
+            User user = userService.getUserById(favoriteRequest.getUserId());
+            Teacher teacher = teacherService.getTeacherById(favoriteRequest.getTeacherId());
+            if (user != null && teacher != null) {
+                Favorite favorite = favoriteService.addFavorite(user, teacher);
+                return ResponseEntity.ok(favorite);
+            } else {
+                throw new CustomException("Invalid user or teacher ID");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 
     @DeleteMapping("/remove/{favoriteId}")
     public ResponseEntity<?> removeFavorite(@PathVariable Long favoriteId) {
-        favoriteService.removeFavorite(favoriteId);
-        return ResponseEntity.ok("Favorite removed successfully");
+        try {
+            favoriteService.removeFavorite(favoriteId);
+            return ResponseEntity.ok("Favorite removed successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
     }
 
+
+    //corregir porque obtiene toda la info de la tabla favoritos
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getFavoritesByUser(@PathVariable String userId) {
-        User user = userService.getUserByUid(userId);
-        if (user != null) {
-            return ResponseEntity.ok(favoriteService.getFavoritesByUser(user));
-        } else {
-            return ResponseEntity.badRequest().body("Invalid user ID");
+    public ResponseEntity<?> getFavoritesByUser(@PathVariable Long userId) {
+        try {
+            User user = userService.getUserById(userId);
+            if (user != null) {
+                return ResponseEntity.ok(favoriteService.getFavoritesByUser(userId));
+            } else {
+                throw new CustomException("User not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 
     static class FavoriteRequest {
-        private String userId;
+        private Long userId;
         private Long teacherId;
 
-        public String getUserId() {
+        public Long getUserId() {
             return userId;
         }
 
-        public void setUserId(String userId) {
+        public void setUserId(Long userId) {
             this.userId = userId;
         }
 

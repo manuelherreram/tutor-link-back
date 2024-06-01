@@ -33,6 +33,7 @@ public class UserService {
 
     private UserDto convertToUserDto(User user) {
          return new UserDto(
+                user.getId(),
                 user.getUID(),
                 user.getEmail(),
                 user.getFirstName() + " " + user.getLastName(),
@@ -65,7 +66,7 @@ public class UserService {
         newUser.setFirstName(request.getFirstName());
         newUser.setLastName(request.getLastName());
         newUser.setEmail(request.getEmail());
-        newUser.setPassword(request.getPassword());  // Considera cifrar la contraseña si la vas a guardar
+        newUser.setPassword(request.getPassword()); // cifrar la contraseña
         newUser.setRole("USER");
         newUser.setPhone(request.getPhone());
         newUser.setAddress(request.getAddress());
@@ -98,30 +99,39 @@ public class UserService {
             throw new AuthenticationException("Login failed: " + e.getMessage());
         }
     }
-    public void deleteUser(String uid) throws FirebaseAuthException {
-        FirebaseAuth.getInstance().deleteUser(uid);
+    public void deleteUser(Long Id) throws FirebaseAuthException {
+        FirebaseAuth.getInstance().deleteUser(getUidById(Id));
     }
-    public void updateUser(String uid, String email, String password, String firstName, String lastName) throws FirebaseAuthException {
-        UserRecord.UpdateRequest request = new UserRecord.UpdateRequest(uid)
+    public void updateUser(Long Id, String email, String password, String firstName, String lastName) throws FirebaseAuthException {
+        UserRecord.UpdateRequest request = new UserRecord.UpdateRequest(getUidById(Id))
                 .setEmail(email)
                 .setPassword(password)
                 .setDisplayName(firstName + " " + lastName);
         FirebaseAuth.getInstance().updateUser(request);
     }
-    public void setRole(String uid, String role) throws FirebaseAuthException {
+    public void setRole(Long Id, String role) throws FirebaseAuthException {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", role);
-        FirebaseAuth.getInstance().setCustomUserClaims(uid, claims);
+        FirebaseAuth.getInstance().setCustomUserClaims(getUidById(Id), claims);
     }
-    public String getRole(String uid) throws FirebaseAuthException {
-        return FirebaseAuth.getInstance().getUser(uid).getCustomClaims().get("role").toString();
+    public String getRole(Long Id) throws FirebaseAuthException {
+
+        return FirebaseAuth.getInstance().getUser(getUidById(Id)).getCustomClaims().get("role").toString();
     }
-    public UserRecord getUser(String uid) throws FirebaseAuthException {
-        return FirebaseAuth.getInstance().getUser(uid);
+    public UserRecord getUser(Long Id) throws FirebaseAuthException {
+        return FirebaseAuth.getInstance().getUser(getUidById(Id));
+
     }
     //getuserbyId
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
     public User getUserByUid(String uid) {
         return userRepository.findByUID(uid).orElse(null);
+    }
+    //GetUidById with optional
+    public String getUidById(Long id) {
+        return userRepository.findById(id).map(User::getUID).orElse(null);
     }
 }
 

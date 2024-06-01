@@ -5,9 +5,10 @@ import com.proyecto.tutorlink.entity.User;
 import com.proyecto.tutorlink.repository.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 @Service
 public class FavoriteService {
     @Autowired
@@ -22,13 +23,17 @@ public class FavoriteService {
         favoriteRepository.deleteById(id);
     }
 
-    public List<Favorite> getFavoritesByUser(User user) {
-        return favoriteRepository.findAll().stream()
-                .filter(favorite -> favorite.getUser().equals(user))
-                .collect(Collectors.toList());
+    public List<Favorite> getFavoritesByUser(Long userId) {
+        return favoriteRepository.findByUserId(userId);
     }
+
+
 
     public Optional<Favorite> getFavorite(Long id) {
         return favoriteRepository.findById(id);
+    }
+    //getuserbyId
+    public Favorite getFavoriteById(Long id) {
+        return favoriteRepository.findById(id).orElse(null);
     }
 }

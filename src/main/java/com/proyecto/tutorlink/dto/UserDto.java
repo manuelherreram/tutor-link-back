@@ -1,6 +1,7 @@
 package com.proyecto.tutorlink.dto;
 
 public class UserDto {
+    private final Long Id;
     private String uid;
     private String email;
     private String displayName;
@@ -13,9 +14,10 @@ public class UserDto {
     private String country;
 
     // Constructor que incluye todos los campos
-    public UserDto(String uid, String email, String displayName, String role,
+    public UserDto(Long Id,String uid, String email, String displayName, String role,
                    String firstName, String lastName, String phone, String address,
                    String city, String country) {
+        this.Id = Id;
         this.uid = uid;
         this.email = email;
         this.displayName = displayName;
@@ -28,7 +30,8 @@ public class UserDto {
         this.country = country;
     }
 
-    // Getters y setters para todos los campos
+    // Getters y setters
+    public Long getId() { return Id; }
     public String getUid() { return uid; }
     public void setUid(String uid) { this.uid = uid; }
     public String getEmail() { return email; }

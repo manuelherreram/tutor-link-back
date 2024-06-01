@@ -2,6 +2,7 @@ package com.proyecto.tutorlink.controller;
 import com.google.firebase.auth.UserRecord;
 import com.proyecto.tutorlink.dto.UserDto;
 import com.proyecto.tutorlink.dto.UserRegistrationRequest;
+import com.proyecto.tutorlink.entity.User;
 import com.proyecto.tutorlink.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,20 @@ public class UserController {
             return ResponseEntity.ok("User registered successfully with UID: " + userRecord.getUid());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
+        }
+    }
+    //getuserbyId
+    @GetMapping("/public/user/{userId}")
+    public ResponseEntity<?> getUserById(@PathVariable Long userId) {
+        try {
+            User user = userService.getUserById(userId);
+            if (user != null) {
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.badRequest().body("User not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 }
