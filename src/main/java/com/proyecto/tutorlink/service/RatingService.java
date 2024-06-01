@@ -1,5 +1,6 @@
 package com.proyecto.tutorlink.service;
 import com.proyecto.tutorlink.dto.RatingDto;
+import com.proyecto.tutorlink.dto.RatingResponseDto;
 import com.proyecto.tutorlink.entity.Rating;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.entity.User;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RatingService {
@@ -38,17 +40,15 @@ public class RatingService {
         return ratingRepository.save(rating);
     }
 
-
-    public List<Rating> getRatingsForTeacher(Long teacherId) {
+    public List<RatingResponseDto> getRatingsForTeacher(Long teacherId) {
         List<Rating> ratings = ratingRepository.findByTeacherId(teacherId);
         ratings.forEach(rating -> {
             Hibernate.initialize(rating.getUser());
             Hibernate.initialize(rating.getTeacher());
         });
-        return ratings;
+        return ratings.stream().map(RatingResponseDto::new).collect(Collectors.toList());
     }
 
-    // métodos
+    }
 
-}
 

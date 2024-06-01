@@ -1,6 +1,7 @@
 package com.proyecto.tutorlink.controller;
 
 import com.proyecto.tutorlink.dto.RatingDto;
+import com.proyecto.tutorlink.dto.RatingResponseDto;
 import com.proyecto.tutorlink.entity.Rating;
 import com.proyecto.tutorlink.repository.RatingRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
@@ -36,13 +37,9 @@ public class RatingController {
     }
 
     @GetMapping("/{teacherId}")
-    public ResponseEntity<List<Rating>> getRatingsForTeacher(@PathVariable Long teacherId) {
-        try {
-            List<Rating> ratings = ratingService.getRatingsForTeacher(teacherId);
-            return ResponseEntity.ok(ratings);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
-        }
+    public ResponseEntity<List<RatingResponseDto>> getRatingsForTeacher(@PathVariable Long teacherId) {
+        List<RatingResponseDto> ratings = ratingService.getRatingsForTeacher(teacherId);
+        return ResponseEntity.ok(ratings);
     }
 
 
