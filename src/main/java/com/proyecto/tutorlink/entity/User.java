@@ -48,17 +48,24 @@ public class User {
     @Column (name = "UID", nullable = false, unique = true)
     private String UID;
 
-    // pediente asignacion de UID de Firebase al usuario (notnull)
-    // pendiente manejo de campos que no podrán ser nulos
-    // pendiente manejo de roles
-    // asociar reservas
-    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    // private List<Reservation> reservations = new ArrayList<>();
+
 
     public User() {
     }
+    public User(String firstName, String lastName, String email, String password, String role, String phone, String address, String city, String country, String uid) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
+        this.country = country;
+        this.UID = uid;
+    }
 
-    public User(Long id, String name, String email, String password, String role, String phone, String address, String city, String country, String UID) {
+    public User(Long id, String firstName, String lastName, String email, String password, String role, String phone, String address, String city, String country, String UID) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,6 +78,7 @@ public class User {
         this.country = country;
         this.UID = UID;
     }
+
 
     public Long getId() {
         return id;

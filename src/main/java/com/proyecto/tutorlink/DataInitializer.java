@@ -1,18 +1,11 @@
 package com.proyecto.tutorlink;
-import com.proyecto.tutorlink.entity.Characteristic;
-import com.proyecto.tutorlink.entity.Subject;
-import com.proyecto.tutorlink.repository.CharacteristicRepository;
-import com.proyecto.tutorlink.repository.SubjectRepository;
+import com.proyecto.tutorlink.entity.*;
+import com.proyecto.tutorlink.repository.*;
 import com.proyecto.tutorlink.service.TeacherService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.proyecto.tutorlink.entity.Teacher;
-import com.proyecto.tutorlink.entity.Image;
-import com.proyecto.tutorlink.repository.TeacherRepository;
-import com.proyecto.tutorlink.repository.ImageRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +25,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private CharacteristicRepository characteristicRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private TeacherService teacherService;
 
 
@@ -43,6 +39,16 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     }
 
     private void initializeData() {
+
+        User user1 = new User("John", "Doe", "john.doe@example.com", "password123", "ROLE_USER", "1234567890", "123 Street", "City", "Country","NpL892jhJLTrlQXFVfZJa8c0xFy2");
+        User user2 = new User("Jane", "Doe", "jane.doe@example.com", "password123", "ROLE_USER", "1234567891", "124 Street", "City", "Country", "sOWkVoVcRpf0wqFenaR2OYXd0u03");
+        User user3 = new User("Jim", "Beam", "jim.beam@example.com", "password123", "ROLE_USER", "1234567892", "125 Street", "City", "Country","aU2XtjRl5yUC4yKQrPAmjWeO5v83" );
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+
+
         List<Teacher> teachers = new ArrayList<>();
 
         Subject subjectM = new Subject("Matematicas");
@@ -77,9 +83,6 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         characteristics2.add(clasesGrupales);
         characteristics2.add(idiomas);
         characteristics2.add(superProfesor);
-
-
-
 
 
         teachers.add(new Teacher("Marcelo Díaz", "100001", "Experto en métodos educativos innovadores y tecnologías de aprendizaje.", subjectH, characteristics));
@@ -117,6 +120,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         });
 
     }
+
 }
 
 

@@ -1,10 +1,12 @@
 package com.proyecto.tutorlink.service;
+import com.proyecto.tutorlink.dto.TeacherDto;
 import com.proyecto.tutorlink.entity.Characteristic;
 import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Subject;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.repository.CharacteristicRepository;
+import com.proyecto.tutorlink.repository.FavoriteRepository;
 import com.proyecto.tutorlink.repository.SubjectRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -24,6 +27,8 @@ public class TeacherService {
     @Autowired
     private CharacteristicRepository characteristicRepository;
 
+    @Autowired
+    private FavoriteRepository favoriteRepository;
     @Transactional
 
     public Teacher addTeacher(Teacher teacher) {
@@ -133,4 +138,12 @@ public class TeacherService {
 
         teacherRepository.save(teacher);
     }
+    //obtener todos los profesores con sus favoritos
+    public List<TeacherDto> getAllTeachersWithFavorites(Long userId) {
+        return teacherRepository.findAll().stream()
+                .map(teacher -> new TeacherDto(teacher, favoriteRepository.isFavorite(userId, teacher.getId())))
+                .collect(Collectors.toList());
+    }
+
+
 }

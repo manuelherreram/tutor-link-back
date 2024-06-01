@@ -1,4 +1,5 @@
 package com.proyecto.tutorlink.controller;
+import com.proyecto.tutorlink.dto.TeacherDto;
 import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
@@ -46,6 +47,20 @@ public class TeacherController {
     public ResponseEntity<List<Teacher>> getRandomTeachers() {
         List<Teacher> randomTeachers = teacherService.getRandomTeachers();
         return ResponseEntity.ok(randomTeachers);
+    }
+
+    //obtener listado profesores con favoritos marcados (true) para el user entregado
+    @GetMapping("/teachers/favorites/{userId}")
+    public ResponseEntity<List<TeacherDto>> getTeachersWithFavorites(@PathVariable Long userId) {
+        try {
+            List<TeacherDto> teachers = teacherService.getAllTeachersWithFavorites(userId);
+            if (teachers.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(teachers);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/public/teachers/category")
