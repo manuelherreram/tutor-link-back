@@ -11,6 +11,8 @@ import com.proyecto.tutorlink.repository.UserRepository;
 import com.proyecto.tutorlink.repository.AvailabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -47,19 +49,21 @@ import java.util.List;
             return reservationRepository.save(reservation);
         }
 
+
         private boolean hasNoScheduleConflicts(Teacher teacher, LocalDateTime startTime, LocalDateTime endTime) {
             List<Reservation> overlappingReservations = reservationRepository.findReservationsByTeacherAndTimeRange(teacher.getId(), startTime, endTime);
             return overlappingReservations.isEmpty();
         }
-    private boolean isTeacherAvailable(Teacher teacher, LocalDateTime startTime, LocalDateTime endTime) {
-        List<Availability> availabilities = availabilityRepository.findByTeacherIdAndDayOfWeek(teacher.getId(), startTime.getDayOfWeek());
-        for (Availability availability : availabilities) {
-            if (startTime.toLocalTime().isAfter(availability.getStartTime()) && endTime.toLocalTime().isBefore(availability.getEndTime())) {
-                return true;
-            }
+
+        private boolean isTeacherAvailable(Teacher teacher, LocalDateTime startTime, LocalDateTime endTime) {
+            DayOfWeek dayOfWeek = startTime.getDayOfWeek();
+            List<Availability> availabilities = availabilityRepository.findByTeacherIdAndDayOfWeek(teacher.getId(), dayOfWeek);
+            return availabilities.stream().anyMatch(availability ->
+                    !startTime.toLocalTime().isBefore(availability.getStartTime()) &&
+                            !endTime.toLocalTime().isAfter(availability.getEndTime())
+            );
         }
-        return false;
-    }
+
 
 //METODOS ACTUALIZAR CANCELAR RESERVAS
 }

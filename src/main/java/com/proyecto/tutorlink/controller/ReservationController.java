@@ -18,15 +18,16 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @PostMapping
-    public ResponseEntity<Reservation> createReservation(@RequestBody ReservationDto reservationDto) {
+    @PostMapping("/add")
+    public ResponseEntity<?> createReservation(@RequestBody ReservationDto reservationDto) {
         try {
             Reservation reservation = reservationService.bookClass(reservationDto);
             return ResponseEntity.ok(reservation);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
 
     // Endpoints actualizar y cancelar reservas
 }
