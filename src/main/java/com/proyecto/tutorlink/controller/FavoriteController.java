@@ -13,19 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/favorites")
 public class FavoriteController {
-
     @Autowired
     private FavoriteService favoriteService;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private TeacherService teacherService;
 
@@ -46,7 +42,6 @@ public class FavoriteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
         }
     }
-
 
     @DeleteMapping("/remove")
     public ResponseEntity<?> removeFavorite(@RequestBody FavoriteRemoveRequest request) {
@@ -74,7 +69,5 @@ public class FavoriteController {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
-
-
 
 }

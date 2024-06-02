@@ -1,57 +1,39 @@
-SWAGGER ACCESS: http://localhost:8080/swagger-ui/index.html  
+# Tutor Link
 
-user:user password: admin
-  
-- **Rutas TEACHERS** 
-  - Obtener todos los profesores ADMIN:   
-  localhost:8080/api/admin/teachers  
-   
-  - Obtener 10 profesores al azar:  
-  localhost:8080/api/public/index  
-   
-  - Buscar por id:  
-  localhost:8080/api/public/{id}  
-   
-  - Guardar nuevo profesor ADMIN:  
-  localhost:8080/api/admin/teachers  
-   
-  - Eliminar profesor ADMIN:  
-  localhost:8080/api/admin/teachers/{id}  
-   
-  - Buscar profesores por categoría(s) (ej. Matemáticas, Historia):    
-    localhost:8080/api/public/teachers/category?subjects=Matematicas,Historia  
-        
-  - **RUTAS USUARIOS**  
- 
-    - Obtener todos los usuarios registrados (ADMIN):  
-    localhost:8080/api/admin/users  
-   
-    - Crear usuario nuevo, se crean con rol USER por defecto.   
-    localhost:8080/api/public/createuser  
-     
-    - Login usuario:
-    localhost:8080/api/public/login
-    EL TOKEN QUE ENTREGA DEBE SER VALIDADO E INTERCAMBIADO POR UN  
-    TOKEN ID EN FRONT. 
-   
-    - Setear el rol de un usuario (ADMIN):
-      localhost:8080/api/admin/set-role
-      
-      
-- **OTRAS**
-  - Lista las categorías (subjects) disponibles.:
-    localhost:8080/api/admin/subjects/list  
-   
-  - Agregar un nuevo subject (categorias) , solo ADMIN:  
-   
-    localhost:8080/api/admin/subjects/add
-   
-  - Editar el subject (categorias) de un profesor, solo ADMIN:  
-  
-    localhost:8080/api/admin/teachers/{id}  
+## Descripción
+Tutor Link es una plataforma diseñada para conectar estudiantes con profesores, permitiendo a los usuarios reservar clases de manera eficiente y gestionar horarios de manera efectiva. Esta aplicación ayuda a optimizar la asignación de recursos y mejora la experiencia educativa tanto para estudiantes como para profesores.
 
-- Base de datos temporal es H2 en MEM, se crea al levantar el back.
-  url=jdbc:h2:mem:tutorlink  
-  consola: localhost:8080/H2-console  
-      user: sa  
-      password: sa
+## Características
+- **Reservas de Clases**: Los usuarios pueden buscar y reservar clases con profesores disponibles, basándose en la disponibilidad real y la gestión de conflictos de horarios.
+- **Gestión de Disponibilidad**: Los profesores pueden definir y actualizar sus horarios disponibles, permitiendo un sistema flexible y adaptativo.
+- **Autenticación y Autorización**: Integración con Firebase para manejo seguro de sesiones de usuario y roles.
+- **Gestión de Favoritos**: Los usuarios pueden marcar a sus profesores favoritos, optimizando la búsqueda y reserva de futuras sesiones.
+- **Evaluación y Feedback**: Sistema para que los usuarios evalúen y comenten sobre las clases, mejorando la calidad del servicio educativo.
+
+## Tecnologías Utilizadas
+- Spring Boot
+- Hibernate ORM con JPA
+- Base de datos H2 en memoria
+- Firebase para autenticación
+- Swagger para documentación de la API
+
+## Configuración Inicial
+1. **Clonar el repositorio**: `git clone URL`
+2. **Instalar dependencias**: `mvn install`
+3. **Configurar la base de datos H2**:
+  - URL: `jdbc:h2:mem:tutorlink`
+  - Consola: [H2 Console](http://localhost:8080/H2-console)
+  - Usuario: `sa`
+  - Contraseña: `sa`
+4. **Ejecutar la aplicación**: `mvn spring-boot:run`
+
+## Uso
+La API está documentada con Swagger, accesible desde `http://localhost:8080/swagger-ui.html` después de ejecutar la aplicación. Para acceder a Swagger:
+- **Usuario**: user
+- **Contraseña**: admin
+
+## Contribuir
+Los contribuyentes son bienvenidos. Por favor, envía tus pull requests a `develop` branch y asegúrate de actualizar los tests según sea necesario.
+
+## Licencia
+Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
