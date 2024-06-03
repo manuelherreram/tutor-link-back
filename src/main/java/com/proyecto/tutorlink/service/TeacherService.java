@@ -145,5 +145,11 @@ public class TeacherService {
                 .collect(Collectors.toList());
     }
 
+    public List<Teacher> getTeachersByCharacteristicIds(List<Long> characteristicIds) {
+        if (characteristicIds == null || characteristicIds.isEmpty()) {
+            throw new IllegalArgumentException("Characteristic IDs cannot be null or empty");
+        }
+        return teacherRepository.findByCharacteristicIds(characteristicIds, characteristicIds.size());
+    }
 
 }

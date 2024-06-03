@@ -49,6 +49,14 @@ public class RatingService {
         return ratings.stream().map(RatingResponseDto::new).collect(Collectors.toList());
     }
 
+    public List<RatingResponseDto> getRatingsByUser(Long userId) {
+        List<Rating> ratings = ratingRepository.findByUserId(userId);
+        ratings.forEach(rating -> {
+            Hibernate.initialize(rating.getUser());
+            Hibernate.initialize(rating.getTeacher());
+        });
+        return ratings.stream().map(RatingResponseDto::new).collect(Collectors.toList());
     }
+}
 
 

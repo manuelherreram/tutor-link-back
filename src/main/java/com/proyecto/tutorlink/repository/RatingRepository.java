@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface RatingRepository extends JpaRepository<Rating, Long> {
         List<Rating> findByTeacherId(Long teacherId);
-    }
+
+    List<Rating> findByUserId(Long userId);
+
+}
 
 

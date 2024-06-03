@@ -82,7 +82,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     List<Characteristic> characteristics2 = new ArrayList<>();
         characteristics2.add(clasesGrupales);
         characteristics2.add(idiomas);
-        characteristics2.add(superProfesor);
+
+    List<Characteristic> characteristics3 = new ArrayList<>();
+        characteristics3.add(superProfesor);
 
 
         teachers.add(new Teacher("Marcelo Díaz", "100001", "Experto en métodos educativos innovadores y tecnologías de aprendizaje.", subjectH, characteristics));
@@ -108,7 +110,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         teachers.add(new Teacher("David Navarro", "100021", "Especialista en biología y ciencias naturales.", subjectG, characteristics2));
         teachers.add(new Teacher("Julia Casas", "100022", "Experta en psicología educativa y desarrollo del aprendizaje.", subjectM, characteristics));
         teachers.add(new Teacher("Juan García", "100023", "Profesor de educación física y deportes.", subjectG, characteristics2));
-        teachers.add(new Teacher("María Soto", "100024", "Enseña técnicas de estudio y preparación para exámenes.", subjectH, characteristics));
+        teachers.add(new Teacher("María Soto Super", "100024", "Enseña técnicas de estudio y preparación para exámenes.", subjectH, characteristics3));
 
         teachers.forEach(teacher -> {
             Teacher savedTeacher = teacherRepository.save(teacher);
