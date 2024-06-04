@@ -90,7 +90,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         teachers.add(new Teacher("Marcelo Díaz", "100001", "Experto en métodos educativos innovadores y tecnologías de aprendizaje.", subjectH, characteristics));
         teachers.add(new Teacher("Lucía Fernández", "100002", "Amplia experiencia en educación primaria y desarrollo infantil.", subjectG, characteristics2));
         teachers.add(new Teacher("Carlos Ramírez", "100003", "Especialista en historia mundial y dinámicas de grupo.", subjectH, characteristics2));
-        teachers.add(new Teacher("Sofía Morales", "100004", "Dedicada a la enseñanza del arte y la expresión creativa.", subjectG, characteristics2));
+        teachers.add(new Teacher("Sofía Historia Vergara", "100004", "Dedicada a la enseñanza del arte y la expresión creativa.", subjectG, characteristics2));
         teachers.add(new Teacher("Eduardo Vargas", "100005", "Profesor de matemáticas con enfoque en resolución de problemas.", subjectM, characteristics2));
         teachers.add(new Teacher("Laura Martínez", "100006", "Especialista en ciencias de la salud y educación para el bienestar.", subjectH, characteristics2));
         teachers.add(new Teacher("Antonio López", "100007", "Imparte clases de física avanzada y experimentación científica.", subjectM, characteristics2));

@@ -40,7 +40,7 @@ public class TeacherSpecification {
             return criteriaBuilder.and(subjectPredicate, characteristicPredicate);
         };
     }
-//barra busqueda
+//barra busqueda por palabra clave
     public static Specification<Teacher> hasKeyword(String keyword) {
         return (root, query, cb) -> {
             String likePattern = "%" + keyword.toLowerCase() + "%";
