@@ -9,7 +9,9 @@ import com.proyecto.tutorlink.repository.CharacteristicRepository;
 import com.proyecto.tutorlink.repository.FavoriteRepository;
 import com.proyecto.tutorlink.repository.SubjectRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
+import com.proyecto.tutorlink.specification.TeacherSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
@@ -149,6 +151,18 @@ public class TeacherService {
         if (characteristicIds == null || characteristicIds.isEmpty()) {
             throw new IllegalArgumentException("Characteristic IDs cannot be null or empty");
         }
+        return teacherRepository.findByCharacteristicIds(characteristicIds, characteristicIds.size());
+    }
+
+
+    // PRUEBAS FILTRADO MIXTO por subjects y characteristics
+
+    public List<Teacher> getTeachersByFilter(List<String> subjectTitles, List<Long> characteristicIds) {
+            Specification<Teacher> spec = TeacherSpecification.byFilter(subjectTitles, characteristicIds);
+            return teacherRepository.findAll(spec);
+        }
+
+    public List<Teacher> getTeachersByCharacteristics(List<Long> characteristicIds) {
         return teacherRepository.findByCharacteristicIds(characteristicIds, characteristicIds.size());
     }
 

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -42,11 +43,13 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/public/index")
     public ResponseEntity<List<Teacher>> getRandomTeachers() {
         List<Teacher> randomTeachers = teacherService.getRandomTeachers();
         return ResponseEntity.ok(randomTeachers);
     }
+
     //obtener listado profesores con favoritos marcados (true) para el user entregado
     @GetMapping("/teachers/favorites/{userId}")
     public ResponseEntity<List<TeacherDto>> getTeachersWithFavorites(@PathVariable Long userId) {
@@ -60,11 +63,13 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
     @GetMapping("/public/teachers/category")
     public ResponseEntity<List<Teacher>> getTeachersBySubjects(@RequestParam List<String> subjects) {
         List<Teacher> teachers = teacherService.getTeachersBySubjects(subjects);
         return ResponseEntity.ok(teachers);
     }
+
     @PostMapping("/admin/teachers")
     public ResponseEntity<?> addTeacher(@RequestBody Teacher teacher) {
         try {
@@ -76,6 +81,7 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @DeleteMapping("/admin/teachers/{id}")
     public ResponseEntity<?> deleteTeacherById(@PathVariable Long id) {
         try {
@@ -85,6 +91,7 @@ public class TeacherController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/teachers/{id}")
     public ResponseEntity<?> updateTeacher(@PathVariable Long id, @RequestBody Teacher teacher) {
@@ -95,6 +102,7 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     //filtro por caraacterísticas
     @GetMapping("/teachers/characteristics-filter")
     public ResponseEntity<List<Teacher>> getTeachersByCharacteristics(@RequestParam List<Long> characteristicIds) {
@@ -105,4 +113,12 @@ public class TeacherController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    //PRUBAS FILTRADO por caraacterísticas y subjects
+    @GetMapping("/teachers/search")
+    public ResponseEntity<List<Teacher>> getTeachersByFilter(@RequestParam List<String> subjects, @RequestParam List<Long> characteristicIds) {
+        List<Teacher> teachers = teacherService.getTeachersByFilter(subjects, characteristicIds);
+        return ResponseEntity.ok(teachers);
+    }
 }
+
