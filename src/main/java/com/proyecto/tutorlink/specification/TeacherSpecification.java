@@ -40,6 +40,21 @@ public class TeacherSpecification {
             return criteriaBuilder.and(subjectPredicate, characteristicPredicate);
         };
     }
+//barra busqueda
+    public static Specification<Teacher> hasKeyword(String keyword) {
+        return (root, query, cb) -> {
+            String likePattern = "%" + keyword.toLowerCase() + "%";
+            Join<Teacher, Subject> subjectJoin = root.join("subject", JoinType.LEFT);
+            Join<Teacher, Characteristic> characteristicJoin = root.join("characteristics", JoinType.LEFT);
+
+            Predicate namePredicate = cb.like(cb.lower(root.get("name")), likePattern);
+            Predicate descriptionPredicate = cb.like(cb.lower(root.get("description")), likePattern);
+            Predicate subjectPredicate = cb.like(cb.lower(subjectJoin.get("title")), likePattern);
+            Predicate characteristicPredicate = cb.like(cb.lower(characteristicJoin.get("name")), likePattern);
+
+            return cb.or(namePredicate, descriptionPredicate, subjectPredicate, characteristicPredicate);
+        };
+    }
 }
 
 

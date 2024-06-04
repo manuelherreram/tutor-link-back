@@ -3,7 +3,9 @@ import com.proyecto.tutorlink.dto.TeacherDto;
 import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
+import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.service.TeacherService;
+import com.proyecto.tutorlink.specification.TeacherSpecification;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,6 +29,9 @@ public class TeacherController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @GetMapping("/admin/teachers")
     public ResponseEntity<List<Teacher>> getAllTeachers() {
@@ -120,5 +128,15 @@ public class TeacherController {
         List<Teacher> teachers = teacherService.getTeachersByFilter(subjects, characteristicIds);
         return ResponseEntity.ok(teachers);
     }
+
+    //busqueda de profesores por palabra en searchBar
+    @GetMapping("/teachers/keywordsearch")
+    public ResponseEntity<List<Teacher>> searchTeachers(@RequestParam String keyword) {
+        List<Teacher> teachers = teacherService.getTeachersByKeyword(keyword);
+        Set<Teacher> uniqueTeachers = new HashSet<>(teachers);
+        return ResponseEntity.ok(new ArrayList<>(uniqueTeachers));
+
+    }
+
 }
 

@@ -40,9 +40,9 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
     private void initializeData() {
 
-        User user1 = new User("John", "Doe", "john.doe@example.com", "password123", "ROLE_USER", "1234567890", "123 Street", "City", "Country","NpL892jhJLTrlQXFVfZJa8c0xFy2");
-        User user2 = new User("Jane", "Doe", "jane.doe@example.com", "password123", "ROLE_USER", "1234567891", "124 Street", "City", "Country", "sOWkVoVcRpf0wqFenaR2OYXd0u03");
-        User user3 = new User("Jim", "Beam", "jim.beam@example.com", "password123", "ROLE_USER", "1234567892", "125 Street", "City", "Country","aU2XtjRl5yUC4yKQrPAmjWeO5v83" );
+        User user1 = new User("Juan Pablo", "Sopa", "juan.sopa@mail.com", "password123", "ROLE_USER", "1234567892", "Calle Lejos 666", "Stgo", "Chile","4pATozFoE1c5IXrR4og80dxPkT32");
+        User user2 = new User("Tulio", "Triviño", "tulio.triviño@mail.com", "password123", "ROLE_USER", "1234567892", "Calle Lejos 666", "Stgo", "Chile", "wEYnrYAg70feyZZBM1HWYMXStU42");
+        User user3 = new User("Joe", "Pino", "joe.pino@mail.com", "password123", "ROLE_USER", "1234567892", "Calle Lejos 666", "Stgo", "Chile","8IeihYcTxBb5J03vSFW5NxHZZTn2" );
 
         userRepository.save(user1);
         userRepository.save(user2);

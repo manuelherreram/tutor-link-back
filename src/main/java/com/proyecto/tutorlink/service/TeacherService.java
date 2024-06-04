@@ -165,5 +165,8 @@ public class TeacherService {
     public List<Teacher> getTeachersByCharacteristics(List<Long> characteristicIds) {
         return teacherRepository.findByCharacteristicIds(characteristicIds, characteristicIds.size());
     }
-
+    public List<Teacher> getTeachersByKeyword(String keyword) {
+        Specification<Teacher> spec = TeacherSpecification.hasKeyword(keyword);
+        return teacherRepository.findAll(spec);
+    }
 }
