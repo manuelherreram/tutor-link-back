@@ -188,4 +188,8 @@ private AvailabilityRepository availabilityRepository;
         List<Availability> availabilities = availabilityRepository.findByTeacherIdAndDateBetween(teacher.getId(), startDate, endDate);
         return !availabilities.isEmpty();
     }
+
+    public List<Teacher> getFavoriteTeachersByUser(Long userId) {
+        return teacherRepository.findFavoriteTeachersByUser(userId);
+    }
 }

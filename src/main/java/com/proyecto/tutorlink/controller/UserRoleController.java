@@ -14,8 +14,7 @@ import java.util.Map;
 public class UserRoleController {
 
     @Autowired
-    private UserRepository userRepository;  // Asume que ya tienes un UserRepository
-
+    private UserRepository userRepository;  // Repositorio de usuarios
     @PutMapping("/set-role")
     public ResponseEntity<?> setUserRole(@RequestBody UserRoleRequest request) {
         Map<String, Object> claims = new HashMap<>();

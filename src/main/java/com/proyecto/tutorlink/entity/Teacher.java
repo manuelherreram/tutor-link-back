@@ -41,7 +41,8 @@ public class Teacher {
             inverseJoinColumns = @JoinColumn(name = "characteristic_id")
     )
     private List<Characteristic> characteristics = new ArrayList<>();
-
+   @OneToMany(mappedBy = "teacher")
+    private List<Favorite> favorites = new ArrayList<>();
 
     public Teacher() {
     }

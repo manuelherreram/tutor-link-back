@@ -59,4 +59,19 @@ public class AvailabilityController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //obtener todas las availabilities
+
+    @GetMapping
+    public ResponseEntity<List<Availability>> getAllAvailabilities() {
+        List<Availability> availabilities = availabilityService.getAllAvailability();
+        if (!availabilities.isEmpty()) {
+            return new ResponseEntity<>(availabilities, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+
 }

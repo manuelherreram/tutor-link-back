@@ -61,7 +61,7 @@ public class TeacherController {
         return ResponseEntity.ok(randomTeachers);
     }
 
-    // Obtener profesores marcados como favoritos por un usuario
+    // Obtener todos los profesores, con los favoritos del usuario marcados
     @GetMapping("/teachers/favorites/{userId}")
     public ResponseEntity<List<TeacherDto>> getTeachersWithFavorites(@PathVariable Long userId) {
         try {
@@ -73,6 +73,13 @@ public class TeacherController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
+    }
+//obtener SOLO los profesores favororitos de un user
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/user/favorites/user/{userId}")
+    public ResponseEntity<List<Teacher>> getFavoriteTeachersByUser(@PathVariable Long userId) {
+        List<Teacher> favoriteTeachers = teacherService.getFavoriteTeachersByUser(userId);
+        return ResponseEntity.ok(favoriteTeachers);
     }
 
     // Obtener profesores por materias (público)

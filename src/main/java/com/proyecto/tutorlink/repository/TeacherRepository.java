@@ -21,4 +21,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long>, JpaSpec
     List<Teacher> findBySubjectTitles(@Param("subjectTitles") List<String> subjectTitles);
 
 
+    @Query("SELECT t FROM Teacher t JOIN t.favorites f WHERE f.user.id = :userId")
+    List<Teacher> findFavoriteTeachersByUser(@Param("userId") Long userId);
+
+
 }

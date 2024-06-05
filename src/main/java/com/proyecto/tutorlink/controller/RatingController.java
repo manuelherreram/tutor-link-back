@@ -2,9 +2,8 @@ package com.proyecto.tutorlink.controller;
 
 import com.proyecto.tutorlink.dto.RatingDto;
 import com.proyecto.tutorlink.dto.RatingResponseDto;
+import com.proyecto.tutorlink.dto.RatingStatisticsDto;
 import com.proyecto.tutorlink.entity.Rating;
-import com.proyecto.tutorlink.repository.RatingRepository;
-import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/teachers/ratings")
 public class RatingController {
+
     @Autowired
     private RatingService ratingService;
-    @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private RatingRepository ratingRepository;
 
     @PostMapping("/add")
     public ResponseEntity<?> addRating(@RequestBody RatingDto ratingDto) {
@@ -35,15 +31,54 @@ public class RatingController {
     }
 
     @GetMapping("/{teacherId}")
-    public ResponseEntity<List<RatingResponseDto>> getRatingsForTeacher(@PathVariable Long teacherId) {
-        List<RatingResponseDto> ratings = ratingService.getRatingsForTeacher(teacherId);
-        return ResponseEntity.ok(ratings);
+    public ResponseEntity<?> getRatingsStatisticsForTeacher(@PathVariable Long teacherId) {
+        try {
+            RatingStatisticsDto stats = ratingService.getRatingsStatisticsForTeacher(teacherId);
+            if (stats == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(stats);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body("Error retrieving ratings: " + ex.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+        }
     }
 
-/*    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<RatingResponseDto>> getRatingsByUser(@PathVariable Long userId) {
-        List<RatingResponseDto> ratings = ratingService.getRatingsByUser(userId);
-        return ResponseEntity.ok(ratings);
-    }*/
 
+    @PutMapping("/{ratingId}")
+    public ResponseEntity<?> updateRating(@PathVariable Long ratingId, @RequestBody RatingDto ratingDto) {
+        try {
+            Rating updatedRating = ratingService.updateRating(ratingId, ratingDto);
+            return ResponseEntity.ok(updatedRating);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body("Error updating rating: " + ex.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{ratingId}")
+    public ResponseEntity<?> deleteRating(@PathVariable Long ratingId) {
+        try {
+            ratingService.deleteRating(ratingId);
+            return ResponseEntity.ok().build();
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body("Error deleting rating: " + ex.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<String> getRatingsByUser(@PathVariable Long userId) {
+        try {
+            List<RatingResponseDto> ratings = ratingService.getRatingsByUser(userId);
+            return ResponseEntity.ok(ratings.toString());
+        } catch (RuntimeException ex) {
+            return ResponseEntity.badRequest().body("Error retrieving ratings: " + ex.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error: " + e.getMessage());
+        }
+    }
 }

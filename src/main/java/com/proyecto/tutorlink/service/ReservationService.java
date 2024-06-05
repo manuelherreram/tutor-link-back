@@ -32,6 +32,21 @@ public class ReservationService {
     @Autowired
     private AvailabilityRepository availabilityRepository;
 
+    //get reservation by teacher
+    public List<ReservationDto> getReservationsByTeacher(Long teacherId) {
+        List<Reservation> reservations = reservationRepository.findReservationsByTeacherId(teacherId);
+        return reservations.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+    //get reservation by user
+    public List<ReservationDto> getReservationsByUser(Long userId) {
+        List<Reservation> reservations = reservationRepository.findReservationsByUserId(userId);
+        return reservations.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
     public Reservation bookClass(ReservationDto reservationDto) {
         Teacher teacher = teacherRepository.findById(reservationDto.getTeacherId())
                 .orElseThrow(() -> new RuntimeException("Teacher not found with ID: " + reservationDto.getTeacherId()));

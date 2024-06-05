@@ -15,11 +15,20 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @PostMapping("/add")
+    @PostMapping
     public ResponseEntity<?> createReservation(@RequestBody ReservationDto reservationDto) {
         try {
             Reservation reservation = reservationService.bookClass(reservationDto);
             return ResponseEntity.ok(reservation);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+    //obtener todas las reservas
+    @GetMapping
+    public ResponseEntity<?> getAllReservations() {
+        try {
+            return ResponseEntity.ok(reservationService.getAllReservations());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -35,16 +44,26 @@ public class ReservationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
- //obtener todas las reservas
-    @GetMapping("/all")
-    public ResponseEntity<?> getAllReservations() {
+
+    //obtener reservas de un usuario determinado
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getReservationsByUser(@PathVariable Long userId) {
         try {
-            return ResponseEntity.ok(reservationService.getAllReservations());
+            return ResponseEntity.ok(reservationService.getReservationsByUser(userId));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    //obtener reservas de un profesor determinado
 
+    @GetMapping("/teacher/{teacherId}")
+    public ResponseEntity<?> getReservationsByTeacher(@PathVariable Long teacherId) {
+        try {
+            return ResponseEntity.ok(reservationService.getReservationsByTeacher(teacherId));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
 
 }

@@ -16,4 +16,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime
     );
+
+    //get reservation by teacher
+    @Query("SELECT r FROM Reservation r WHERE r.teacher.id = :teacherId")
+    List<Reservation> findReservationsByTeacherId(@Param("teacherId") Long teacherId);
+
+    //find revevation by user
+    @Query("SELECT r FROM Reservation r WHERE r.user.id = :userId")
+    List<Reservation> findReservationsByUserId(@Param("userId") Long userId);
+
 }
