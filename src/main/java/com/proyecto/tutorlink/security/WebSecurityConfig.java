@@ -40,13 +40,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
     }
 
-   /* @Override
+   @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("user") // Username es 'user'
                 .password(passwordEncoder().encode("admin")) // Password es 'admin'
                 .roles("USER"); // Rol es 'USER'
-    }*/
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
