@@ -1,31 +1,29 @@
+- BackEnd despliega en el puerto 8080
 
-- BackEnd despliega en el puerto 8080  
- 
-- **Rutas TEACHERS** 
-  - Obtener todos los profesores ADMIN:   
-  localhost:8080/api/admin/teachers  
-   
+- **Rutas TEACHERS**
+
+  - Obtener todos los profesores ADMIN:  
+    localhost:8080/api/admin/teachers
+
   - Obtener 10 profesores al azar:  
-  localhost:8080/api/public/index  
-   
+    localhost:8080/api/public/index
+
   - Buscar por id:  
-  localhost:8080/api/public/{id}  
-   
+    localhost:8080/api/public/{id}
+
   - Guardar nuevo profesor ADMIN:  
-  localhost:8080/api/admin/teachers  
-   
+    localhost:8080/api/admin/teachers
+
   - Eliminar profesor ADMIN:  
-  localhost:8080/api/admin/teachers/{id}  
-   
-  - Buscar profesores por categoría(s) (ej. Matemáticas, Historia):    
-    localhost:8080/api/public/teachers/category?subjects=Matematicas,Historia  
-   
-     
-  - **RUTAS USUARIOS**  
- 
+    localhost:8080/api/admin/teachers/{id}
+
+  - Buscar profesores por categoría(s) (ej. Matemáticas, Historia):  
+    localhost:8080/api/public/teachers/category?subjects=Matematicas,Historia
+  - **RUTAS USUARIOS**
+
     - Obtener todos los usuarios registrados (ADMIN):  
-    localhost:8080/api/admin/users  
-   
+      localhost:8080/api/admin/users
+
     - Crear usuario nuevo, se crean con rol USER por defecto.
       localhost:8080/api/public/createuser  
       Body:  
@@ -35,40 +33,76 @@
        "firstName": "",  
        "lastName": "",  
        }
-     
+
     - Login usuario:
-    localhost:8080/api/public/login
+      localhost:8080/api/public/login
       Body:  
-      {  
-      "email": "",  
-      "password": ""  
-      }  
+       {  
+       "email": "",  
+       "password": ""  
+       }
     - Setear el rol de un usuario (ADMIN):
       localhost:8080/api/admin/set-role
       Body:
-        { 
-        "uid":"",
-        "role":""
-        }
-      
-- **OTRAS**
-  - Lista las categorías (subjects) disponibles.:
-    localhost:8080/api/admin/subjects/list  
-  
- 
-  - Agregar un nuevo subject (categorias) , solo ADMIN:  
-   
-    localhost:8080/api/admin/subjects/add
- ![img_1.png](img_1.png) 
-   
-  - Editar el subject (categorias) de un profesor, solo ADMIN:  
-  
-    localhost:8080/api/admin/teachers/{id}  
+      {
+      "uid":"",
+      "role":""
+      }
 
-   ![img.png](img.png) 
+  - **RUTAS SUBJECT**
+
+    - Listar Subjects
+      localhost:8080/api/public/subjects/list
+
+    - Delete Subjects (ADMIN)
+      localhost:8080/api/admin/subjects/eliminar/{id}
+
+- **RUTAS CHARACTERISTIC**
+
+  - Listar Characteristic
+    localhost:8080/api/admin/characteristic/list
+
+  - Crear Characteristic
+    localhost:8080/api/admin/characteristic/add
+    Body:
+    {
+    "name":,
+    "url":
+    }
+
+  - Buscar Characteristic por ID
+    localhost:8080/api/admin/characteristic/{id}
+
+  - Actualizar Characteristic
+    localhost:8080/api/admin/characteristic/actualizar
+    Body:
+    {
+    "id": ,
+    "name": ,
+    "url":
+    }
+
+  - Eliminar Characteristic
+    localhost:8080/api/admin/characteristic/eliminar/{id}
+
+- **OTRAS**
+
+  - Lista las categorías (subjects) disponibles.:
+    localhost:8080/api/admin/subjects/list
+
+  - Agregar un nuevo subject (categorias) , solo ADMIN:
+
+    localhost:8080/api/admin/subjects/add
+    ![img_1.png](img_1.png)
+
+  - Editar el subject (categorias) de un profesor, solo ADMIN:
+
+    localhost:8080/api/admin/teachers/{id}
+
+  ![img.png](img.png)
 
 - Base de datos temporal es H2 en MEM, se crea al levantar el back.
   url=jdbc:h2:mem:tutorlink  
   consola: localhost:8080/H2-console  
-      user: sa  
-      password: sa
+   user: sa  
+   password: sa
