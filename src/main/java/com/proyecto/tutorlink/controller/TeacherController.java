@@ -1,11 +1,10 @@
 package com.proyecto.tutorlink.controller;
+
 import com.proyecto.tutorlink.dto.TeacherDto;
-import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.service.TeacherService;
-import com.proyecto.tutorlink.specification.TeacherSpecification;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +13,17 @@ import org.springframework.http.ResponseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
-
 public class TeacherController {
+
     private static final Logger logger = LoggerFactory.getLogger(TeacherController.class);
 
     @Autowired
@@ -35,6 +32,8 @@ public class TeacherController {
     @Autowired
     private TeacherRepository teacherRepository;
 
+    // Obtener todos los profesores (solo para administradores)
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/admin/teachers")
     public ResponseEntity<List<Teacher>> getAllTeachers() {
         List<Teacher> teachers = teacherService.getAllTeachers();
@@ -42,6 +41,7 @@ public class TeacherController {
         return ResponseEntity.ok(teachers);
     }
 
+    // Obtener un profesor por ID (público)
     @GetMapping("/public/{id}")
     public ResponseEntity<?> getTeacherById(@PathVariable Long id) {
         try {
@@ -49,18 +49,19 @@ public class TeacherController {
             logger.info("Retrieved teacher: {}", teacher);
             return ResponseEntity.ok(teacher);
         } catch (CustomException e) {
-            logger.error("Error retrieving teacher:", e.getMessage());
+            logger.error("Error retrieving teacher: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
+    // Obtener profesores aleatorios (público)
     @GetMapping("/public/index")
     public ResponseEntity<List<Teacher>> getRandomTeachers() {
         List<Teacher> randomTeachers = teacherService.getRandomTeachers();
         return ResponseEntity.ok(randomTeachers);
     }
 
-    //obtener listado profesores con favoritos marcados (true) para el user entregado
+    // Obtener profesores marcados como favoritos por un usuario
     @GetMapping("/teachers/favorites/{userId}")
     public ResponseEntity<List<TeacherDto>> getTeachersWithFavorites(@PathVariable Long userId) {
         try {
@@ -74,12 +75,14 @@ public class TeacherController {
         }
     }
 
+    // Obtener profesores por materias (público)
     @GetMapping("/public/teachers/category")
     public ResponseEntity<List<Teacher>> getTeachersBySubjects(@RequestParam List<String> subjects) {
         List<Teacher> teachers = teacherService.getTeachersBySubjects(subjects);
         return ResponseEntity.ok(teachers);
     }
-
+    // Añadir un nuevo profesor (solo para administradores)
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/admin/teachers")
     public ResponseEntity<?> addTeacher(@RequestBody Teacher teacher) {
         try {
@@ -87,11 +90,13 @@ public class TeacherController {
             logger.info("Added teacher: {}", savedTeacher);
             return ResponseEntity.ok(savedTeacher);
         } catch (IllegalStateException e) {
-            logger.error("Error adding teacher:", e.getMessage());
+            logger.error("Error adding teacher: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
+    // Eliminar un profesor por ID (solo para administradores)
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/teachers/{id}")
     public ResponseEntity<?> deleteTeacherById(@PathVariable Long id) {
         try {
@@ -102,6 +107,7 @@ public class TeacherController {
         }
     }
 
+    // Actualizar un profesor (solo para administradores)
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/admin/teachers/{id}")
     public ResponseEntity<?> updateTeacher(@PathVariable Long id, @RequestBody Teacher teacher) {
@@ -113,7 +119,7 @@ public class TeacherController {
         }
     }
 
-    //filtro por caraacterísticas
+    // Filtrar profesores por características
     @GetMapping("/teachers/characteristics-filter")
     public ResponseEntity<List<Teacher>> getTeachersByCharacteristics(@RequestParam List<Long> characteristicIds) {
         try {
@@ -124,23 +130,22 @@ public class TeacherController {
         }
     }
 
-    //PRUBAS FILTRADO por caraacterísticas y subjects
+    // Filtrar profesores por características y materias (pruebas)
     @GetMapping("/teachers/search")
     public ResponseEntity<List<Teacher>> getTeachersByFilter(@RequestParam List<String> subjects, @RequestParam List<Long> characteristicIds) {
         List<Teacher> teachers = teacherService.getTeachersByFilter(subjects, characteristicIds);
         return ResponseEntity.ok(teachers);
     }
 
-    //busqueda de profesores por palabra en searchBar
+    // Búsqueda de profesores por palabra clave
     @GetMapping("/teachers/keywordsearch")
     public ResponseEntity<List<Teacher>> searchTeachers(@RequestParam String keyword) {
         List<Teacher> teachers = teacherService.getTeachersByKeyword(keyword);
         Set<Teacher> uniqueTeachers = new HashSet<>(teachers);
         return ResponseEntity.ok(new ArrayList<>(uniqueTeachers));
-
     }
 
-    //busqueda por availability-subject
+    // Búsqueda de profesores por disponibilidad y materia
     @GetMapping("/available")
     public List<Teacher> getAvailableTeachers(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -149,4 +154,3 @@ public class TeacherController {
         return teacherService.getAvailableTeachers(startDate, endDate, subjectTitle);
     }
 }
-

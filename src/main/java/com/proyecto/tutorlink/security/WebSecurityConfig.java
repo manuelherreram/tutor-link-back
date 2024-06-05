@@ -12,8 +12,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Arrays;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -28,8 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/public/**").permitAll()
                 .antMatchers("/api/user/**").hasRole("USER")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-
                 .and()
                 .headers()
                 .frameOptions().disable()
@@ -40,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
     }
 
-   @Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("user") // Username es 'user'
