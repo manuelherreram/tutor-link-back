@@ -8,14 +8,14 @@ import com.proyecto.tutorlink.entity.Reservation;
 import com.proyecto.tutorlink.entity.Teacher;
 import com.proyecto.tutorlink.entity.User;
 import com.proyecto.tutorlink.enums.ReservationStatus;
+import com.proyecto.tutorlink.repository.AvailabilityRepository;
 import com.proyecto.tutorlink.repository.ReservationRepository;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.repository.UserRepository;
-import com.proyecto.tutorlink.repository.AvailabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -54,15 +54,14 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
-
     private boolean hasNoScheduleConflicts(Teacher teacher, LocalDateTime startTime, LocalDateTime endTime) {
         List<Reservation> overlappingReservations = reservationRepository.findReservationsByTeacherAndTimeRange(teacher.getId(), startTime, endTime);
         return overlappingReservations.isEmpty();
     }
 
     private boolean isTeacherAvailable(Teacher teacher, LocalDateTime startTime, LocalDateTime endTime) {
-        DayOfWeek dayOfWeek = startTime.getDayOfWeek();
-        List<Availability> availabilities = availabilityRepository.findByTeacherIdAndDayOfWeek(teacher.getId(), dayOfWeek);
+        LocalDate date = startTime.toLocalDate();
+        List<Availability> availabilities = availabilityRepository.findByTeacherIdAndDate(teacher.getId(), date);
         return availabilities.stream().anyMatch(availability ->
                 !startTime.toLocalTime().isBefore(availability.getStartTime()) &&
                         !endTime.toLocalTime().isAfter(availability.getEndTime())

@@ -1,23 +1,15 @@
 package com.proyecto.tutorlink.dto;
-import java.time.DayOfWeek;
+
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AvailabilityDto {
     private Long teacherId;
-    private DayOfWeek dayOfWeek;
+    private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
 
-    public AvailabilityDto() {
-    }
-
-    public AvailabilityDto(Long teacherId, DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        this.teacherId = teacherId;
-        this.dayOfWeek = dayOfWeek;
-        this.startTime = startTime;
-        this.endTime = endTime;
-    }
-
+    // Getters y setters
     public Long getTeacherId() {
         return teacherId;
     }
@@ -26,12 +18,12 @@ public class AvailabilityDto {
         this.teacherId = teacherId;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public LocalTime getStartTime() {
@@ -49,5 +41,4 @@ public class AvailabilityDto {
     public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
-// Getters y Setters
 }

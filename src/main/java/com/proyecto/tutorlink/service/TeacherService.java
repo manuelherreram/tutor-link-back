@@ -4,16 +4,16 @@ import com.proyecto.tutorlink.entity.Characteristic;
 import com.proyecto.tutorlink.entity.Image;
 import com.proyecto.tutorlink.entity.Subject;
 import com.proyecto.tutorlink.entity.Teacher;
+import com.proyecto.tutorlink.entity.Availability;
 import com.proyecto.tutorlink.exception.CustomException;
-import com.proyecto.tutorlink.repository.CharacteristicRepository;
-import com.proyecto.tutorlink.repository.FavoriteRepository;
-import com.proyecto.tutorlink.repository.SubjectRepository;
-import com.proyecto.tutorlink.repository.TeacherRepository;
+import com.proyecto.tutorlink.repository.*;
 import com.proyecto.tutorlink.specification.TeacherSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +31,11 @@ public class TeacherService {
 
     @Autowired
     private FavoriteRepository favoriteRepository;
+
+@Autowired
+private AvailabilityRepository availabilityRepository;
+
+
     @Transactional
 
     public Teacher addTeacher(Teacher teacher) {
@@ -168,5 +173,19 @@ public class TeacherService {
     public List<Teacher> getTeachersByKeyword(String keyword) {
         Specification<Teacher> spec = TeacherSpecification.hasKeyword(keyword);
         return teacherRepository.findAll(spec);
+    }
+
+    //****BUSQUEDA POR SUBJECT Y AVAILABILITY****
+
+    public List<Teacher> getAvailableTeachers(LocalDate startDate, LocalDate endDate, String subjectTitle) {
+        List<Teacher> teachers = teacherRepository.findBySubjectTitle(subjectTitle);
+        return teachers.stream()
+                .filter(teacher -> isTeacherAvailable(teacher, startDate, endDate))
+                .collect(Collectors.toList());
+    }
+
+    private boolean isTeacherAvailable(Teacher teacher, LocalDate startDate, LocalDate endDate) {
+        List<Availability> availabilities = availabilityRepository.findByTeacherIdAndDateBetween(teacher.getId(), startDate, endDate);
+        return !availabilities.isEmpty();
     }
 }

@@ -1,4 +1,5 @@
 package com.proyecto.tutorlink.service;
+
 import com.proyecto.tutorlink.dto.AvailabilityDto;
 import com.proyecto.tutorlink.entity.Availability;
 import com.proyecto.tutorlink.repository.AvailabilityRepository;
@@ -6,7 +7,7 @@ import com.proyecto.tutorlink.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -21,18 +22,19 @@ public class AvailabilityService {
     public List<Availability> getAllAvailability() {
         return availabilityRepository.findAll();
     }
+
     public List<Availability> getAvailabilityByTeacher(Long teacherId) {
         return availabilityRepository.findByTeacherId(teacherId);
     }
 
-    public List<Availability> getAvailabilityByTeacherAndDay(Long teacherId, DayOfWeek dayOfWeek) {
-        return availabilityRepository.findByTeacherIdAndDayOfWeek(teacherId, dayOfWeek);
+    public List<Availability> getAvailabilityByTeacherAndDate(Long teacherId, LocalDate date) {
+        return availabilityRepository.findByTeacherIdAndDate(teacherId, date);
     }
 
     public Availability createAvailability(AvailabilityDto availabilityDto) {
         Availability availability = new Availability();
         availability.setTeacher(teacherRepository.findById(availabilityDto.getTeacherId()).orElseThrow(() -> new RuntimeException("Teacher not found")));
-        availability.setDayOfWeek(availabilityDto.getDayOfWeek());
+        availability.setDate(availabilityDto.getDate());
         availability.setStartTime(availabilityDto.getStartTime());
         availability.setEndTime(availabilityDto.getEndTime());
         return availabilityRepository.save(availability);
@@ -40,7 +42,7 @@ public class AvailabilityService {
 
     public Availability updateAvailability(Long id, AvailabilityDto availabilityDto) {
         Availability availability = availabilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Availability not found"));
-        availability.setDayOfWeek(availabilityDto.getDayOfWeek());
+        availability.setDate(availabilityDto.getDate());
         availability.setStartTime(availabilityDto.getStartTime());
         availability.setEndTime(availabilityDto.getEndTime());
         return availabilityRepository.save(availability);
@@ -49,6 +51,4 @@ public class AvailabilityService {
     public void deleteAvailability(Long id) {
         availabilityRepository.deleteById(id);
     }
-
 }
-

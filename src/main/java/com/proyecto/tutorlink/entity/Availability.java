@@ -1,7 +1,7 @@
 package com.proyecto.tutorlink.entity;
 
 import javax.persistence.*;
-import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -16,7 +16,7 @@ public class Availability {
     private Teacher teacher;
 
     @Column(nullable = false)
-    private DayOfWeek dayOfWeek;
+    private LocalDate date;
 
     @Column(nullable = false)
     private LocalTime startTime;
@@ -24,26 +24,25 @@ public class Availability {
     @Column(nullable = false)
     private LocalTime endTime;
 
-
     public Availability() {
     }
 
-    public Availability(Long id, Teacher teacher, DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+    public Availability(Long id, Teacher teacher, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this.id = id;
         this.teacher = teacher;
-        this.dayOfWeek = dayOfWeek;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    public Availability(Teacher teacher, DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+    public Availability(Teacher teacher, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this.teacher = teacher;
-        this.dayOfWeek = dayOfWeek;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
-    // Getters y setters
 
+    // Getters y setters
     public Long getId() {
         return id;
     }
@@ -60,12 +59,12 @@ public class Availability {
         this.teacher = teacher;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public LocalTime getStartTime() {

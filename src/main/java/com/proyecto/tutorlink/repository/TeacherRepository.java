@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long>, JpaSpecificationExecutor<Teacher> {
     boolean existsByDni(String dni);
-
+    List<Teacher> findBySubjectTitle(String subjectTitle);
     List<Teacher> findBySubjectTitleIn(List<String> subjectTitles);
 
     @Query("SELECT t FROM Teacher t JOIN t.characteristics c WHERE c.id IN :characteristicIds GROUP BY t HAVING COUNT(t) = :count")

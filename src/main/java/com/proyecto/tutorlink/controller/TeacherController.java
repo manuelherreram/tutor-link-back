@@ -6,6 +6,7 @@ import com.proyecto.tutorlink.exception.CustomException;
 import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.service.TeacherService;
 import com.proyecto.tutorlink.specification.TeacherSpecification;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -138,5 +140,13 @@ public class TeacherController {
 
     }
 
+    //busqueda por availability-subject
+    @GetMapping("/available")
+    public List<Teacher> getAvailableTeachers(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam("subjectTitle") String subjectTitle) {
+        return teacherService.getAvailableTeachers(startDate, endDate, subjectTitle);
+    }
 }
 

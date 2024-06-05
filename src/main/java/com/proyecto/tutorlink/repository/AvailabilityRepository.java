@@ -1,12 +1,15 @@
 package com.proyecto.tutorlink.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.proyecto.tutorlink.entity.Availability;
-
-import java.time.DayOfWeek;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
     List<Availability> findByTeacherId(Long teacherId);
-    List<Availability> findByTeacherIdAndDayOfWeek(Long teacherId, DayOfWeek dayOfWeek);
+    //List<Availability> findByDateBetweenAndTeacherSubjectTitle(LocalDate startDate, LocalDate endDate, String subject);
+    List<Availability> findByTeacherIdAndDate(Long teacherId, LocalDate date);
+    List<Availability> findByTeacherIdAndDateBetween(Long teacherId, LocalDate startDate, LocalDate endDate);
+
+
 }
+
