@@ -160,4 +160,15 @@ public class TeacherController {
             @RequestParam("subjectTitle") String subjectTitle) {
         return teacherService.getAvailableTeachers(startDate, endDate, subjectTitle);
     }
+    @GetMapping("/teachers/available")
+    public ResponseEntity<List<Teacher>> getAvailableTeachers(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        List<Teacher> availableTeachers = teacherService.getAvailableTeachers(startDate, endDate);
+        if (availableTeachers.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(availableTeachers);
+    }
+
 }

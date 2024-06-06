@@ -192,4 +192,12 @@ private AvailabilityRepository availabilityRepository;
     public List<Teacher> getFavoriteTeachersByUser(Long userId) {
         return teacherRepository.findFavoriteTeachersByUser(userId);
     }
+
+    public List<Teacher> getAvailableTeachers(LocalDate startDate, LocalDate endDate) {
+        List<Teacher> allTeachers = teacherRepository.findAll();
+        return allTeachers.stream()
+                .filter(teacher -> availabilityRepository.findByTeacherIdAndDateBetween(teacher.getId(), startDate, endDate).size() > 0)
+                .collect(Collectors.toList());
+    }
+
 }
