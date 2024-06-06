@@ -17,7 +17,6 @@ public class RatingResponseDto {
         this.userId = rating.getUser().getId();
     }
 
-    // Getters y setters
     public Long getId() {
         return id;
     }

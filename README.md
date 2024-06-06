@@ -29,7 +29,7 @@ Tutor Link es una plataforma diseñada para conectar estudiantes con profesores,
 ## Uso
 La API está documentada con Swagger, accesible desde `http://localhost:8080/swagger-ui.html` después de ejecutar la aplicación. Para acceder a Swagger:
 - **Usuario**: user
-- **Contraseña**: admin
+- **Contraseña**: admin  
 
-## Licencia
+- ## Licencia
 Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.
