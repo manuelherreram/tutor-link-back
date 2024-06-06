@@ -170,5 +170,16 @@ public class TeacherController {
         }
         return ResponseEntity.ok(availableTeachers);
     }
+    @GetMapping("/teachers/availableBySubject")
+    public ResponseEntity<List<Teacher>> getAvailableTeachersBySubjectAndDate(
+            @RequestParam("subjectTitle") String subjectTitle,
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        List<Teacher> availableTeachers = teacherService.getAvailableTeachersBySubjectAndDate(subjectTitle, startDate, endDate);
+        if (availableTeachers.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(availableTeachers);
+    }
 
 }

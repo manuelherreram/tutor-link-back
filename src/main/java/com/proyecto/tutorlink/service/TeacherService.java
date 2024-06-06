@@ -199,5 +199,12 @@ private AvailabilityRepository availabilityRepository;
                 .filter(teacher -> availabilityRepository.findByTeacherIdAndDateBetween(teacher.getId(), startDate, endDate).size() > 0)
                 .collect(Collectors.toList());
     }
+    // filtro por subject y disponibilidad entre fechas
+    public List<Teacher> getAvailableTeachersBySubjectAndDate(String subjectTitle, LocalDate startDate, LocalDate endDate) {
+        List<Teacher> teachersBySubject = teacherRepository.findBySubjectTitle(subjectTitle);
+        return teachersBySubject.stream()
+                .filter(teacher -> availabilityRepository.findByTeacherIdAndDateBetween(teacher.getId(), startDate, endDate).size() > 0)
+                .collect(Collectors.toList());
+    }
 
 }
