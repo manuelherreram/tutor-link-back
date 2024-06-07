@@ -1,4 +1,5 @@
 package com.proyecto.tutorlink;
+import ch.qos.logback.core.util.COWArrayList;
 import com.proyecto.tutorlink.entity.*;
 import com.proyecto.tutorlink.repository.*;
 import com.proyecto.tutorlink.service.TeacherService;
@@ -9,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Random;
 @Component
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -30,6 +34,8 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private TeacherService teacherService;
 
+    @Autowired
+    private AvailabilityRepository availabilityRepository;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -121,8 +127,50 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             imageRepository.save(new Image("https://images.unsplash.com/photo-1555436169-20e93ea9a7ff?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 5 del Profesor", savedTeacher));
         });
 
+    Random random = new Random();
+    LocalDate startDay = LocalDate.now();
+    int daysToAdd;
+
+    List<Teacher> morningShiftTeachers = teachers.subList(0, 12);
+    List<Teacher> afternoonShiftTeachers = teachers.subList(12, 24);
+
+// Asigna horarios AM
+for (Teacher teacher : morningShiftTeachers) {
+        for (int i = 0; i < 5; i++) {  // 5 días de disponibilidad
+            daysToAdd = i * 7; // Cada semana
+            LocalDate date = startDay.plusDays(daysToAdd);
+            LocalTime startTime = LocalTime.of(9, 0);
+            LocalTime endTime = LocalTime.of(14, 0);
+
+            Availability availability = new Availability();
+            availability.setTeacher(teacher);
+            availability.setDate(date);
+            availability.setStartTime(startTime);
+            availability.setEndTime(endTime);
+
+            availabilityRepository.save(availability);
+        }
     }
 
+// Asigna horarios PM
+for (Teacher teacher : afternoonShiftTeachers) {
+        for (int i = 0; i < 5; i++) {  // 5 días de disponibilidad
+            daysToAdd = i * 7; // Cada semana
+            LocalDate date = startDay.plusDays(daysToAdd);
+            LocalTime startTime = LocalTime.of(15, 0);
+            LocalTime endTime = LocalTime.of(20, 0);
+
+            Availability availability = new Availability();
+            availability.setTeacher(teacher);
+            availability.setDate(date);
+            availability.setStartTime(startTime);
+            availability.setEndTime(endTime);
+
+            availabilityRepository.save(availability);
+        }
+    }
+
+    }
 }
 
 
