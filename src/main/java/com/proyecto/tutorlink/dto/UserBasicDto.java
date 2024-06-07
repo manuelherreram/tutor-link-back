@@ -16,6 +16,11 @@ public class UserBasicDto {
         this.lastName = user.getLastName();
     }
 
+    public UserBasicDto(Long id, String uid, String email, String s, String role) {
+
+
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;

@@ -30,6 +30,14 @@ public class UserDto {
         this.country = country;
     }
 
+    public UserDto(Long id, String uid, String email, String displayName, String role) {
+        this.Id = id;
+        this.uid = uid;
+        this.email = email;
+        this.displayName = displayName;
+        this.role = role;
+    }
+
     // Getters y setters
     public Long getId() { return Id; }
     public String getUid() { return uid; }

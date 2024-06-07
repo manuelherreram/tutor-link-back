@@ -60,7 +60,7 @@ import java.util.List;
             return characteristicService.actualizarCharacteristic(characteristic);
         }
         @PreAuthorize("hasRole('ADMIN')")
-        @DeleteMapping("admin/characteristics/eliminar/{id}")
+        @DeleteMapping("/admin/characteristics/eliminar/{id}")
         public ResponseEntity<?> deleteCharacteristic(@PathVariable Long id) throws CustomException {
             characteristicService.deleteCharacteristic(id);
             return new ResponseEntity<>("Characteristic eliminado correctamente", HttpStatus.OK);

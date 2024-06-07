@@ -1,25 +1,21 @@
 package com.proyecto.tutorlink.service;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.ListUsersPage;
 import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
+import com.proyecto.tutorlink.dto.UserBasicDto;
 import com.proyecto.tutorlink.dto.UserDto;
 import com.proyecto.tutorlink.entity.User;
 import com.proyecto.tutorlink.exception.AuthenticationException;
-import com.proyecto.tutorlink.repository.TeacherRepository;
 import com.proyecto.tutorlink.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.proyecto.tutorlink.dto.UserRegistrationRequest;
 @Service
 public class UserService {
@@ -31,7 +27,7 @@ public class UserService {
         return users.stream().map(this::convertToUserDto).collect(Collectors.toList());
     }
 
-    private UserDto convertToUserDto(User user) {
+    public UserDto convertToUserDto(User user) {
          return new UserDto(
                 user.getId(),
                 user.getUID(),
@@ -46,6 +42,14 @@ public class UserService {
                 user.getCountry()
         );
     }
+    //User convert to basic Dto
+    public UserBasicDto convertToUserBasicDto(User user) {
+        if (user == null) {
+            return null;
+        }
+        return new UserBasicDto(user);
+    }
+
 
     public UserRecord createUser(UserRegistrationRequest request) throws Exception {
         // Crear usuario en Firebase
@@ -132,6 +136,10 @@ public class UserService {
     //GetUidById with optional
     public String getUidById(Long id) {
         return userRepository.findById(id).map(User::getUID).orElse(null);
+    }
+
+    public User getUserByUID(String uid) {
+        return userRepository.findByUID(uid).orElse(null);
     }
 }
 
