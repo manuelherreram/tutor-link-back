@@ -9,5 +9,4 @@ public interface CharacteristicRepository extends JpaRepository<Characteristic, 
     Characteristic findByName(String name);
 
     boolean existsByName(String name);
-
 }

@@ -1,7 +1,5 @@
 package com.proyecto.tutorlink.entity;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "teachers")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +41,8 @@ public class Teacher {
             inverseJoinColumns = @JoinColumn(name = "characteristic_id")
     )
     private List<Characteristic> characteristics = new ArrayList<>();
-
+   @OneToMany(mappedBy = "teacher")
+    private List<Favorite> favorites = new ArrayList<>();
 
     public Teacher() {
     }

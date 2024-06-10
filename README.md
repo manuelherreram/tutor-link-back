@@ -1,108 +1,35 @@
-- BackEnd despliega en el puerto 8080
+# Tutor Link BackEnd
 
-- **Rutas TEACHERS**
+## Descripción
+Tutor Link es una plataforma diseñada para conectar estudiantes con profesores, permitiendo a los usuarios reservar clases de manera eficiente y gestionar horarios de manera efectiva. Esta aplicación ayuda a optimizar la asignación de recursos y mejora la experiencia educativa tanto para estudiantes como para profesores.
 
-  - Obtener todos los profesores ADMIN:  
-    localhost:8080/api/admin/teachers
+## Características
+- **Reservas de Clases**: Los usuarios pueden buscar y reservar clases con profesores disponibles, basándose en la disponibilidad real y la gestión de conflictos de horarios.
+- **Autenticación y Autorización**: Integración con Firebase para manejo seguro de sesiones de usuario y roles.
+- **Gestión de Favoritos**: Los usuarios pueden marcar a sus profesores favoritos, optimizando la búsqueda y reserva de futuras sesiones.
+- **Evaluación y Feedback**: Sistema para que los usuarios evalúen y comenten sobre las clases, mejorando la calidad del servicio educativo.
 
-  - Obtener 10 profesores al azar:  
-    localhost:8080/api/public/index
+## Tecnologías Utilizadas
+- Spring Boot
+- Hibernate ORM con JPA
+- Base de datos H2 en memoria
+- Firebase para autenticación
+- Swagger para documentación de la API
 
-  - Buscar por id:  
-    localhost:8080/api/public/{id}
+## Configuración Inicial
+1. **Clonar el repositorio**: `git clone URL`
+2. **Instalar dependencias**: `mvn install`
+3. **Configurar la base de datos H2**:
+  - URL: `jdbc:h2:mem:tutorlink`
+  - Consola: [H2 Console](http://localhost:8080/H2-console)
+  - Usuario: `sa`
+  - Contraseña: `sa`
+4. **Ejecutar la aplicación**: `mvn spring-boot:run`
 
-  - Guardar nuevo profesor ADMIN:  
-    localhost:8080/api/admin/teachers
+## Uso
+La API está documentada con Swagger, accesible desde `http://localhost:8080/swagger-ui.html` después de ejecutar la aplicación. Para acceder a Swagger:
+- **Usuario**: user
+- **Contraseña**: admin  
 
-  - Eliminar profesor ADMIN:  
-    localhost:8080/api/admin/teachers/{id}
-
-  - Buscar profesores por categoría(s) (ej. Matemáticas, Historia):  
-    localhost:8080/api/public/teachers/category?subjects=Matematicas,Historia
-  - **RUTAS USUARIOS**
-
-    - Obtener todos los usuarios registrados (ADMIN):  
-      localhost:8080/api/admin/users
-
-    - Crear usuario nuevo, se crean con rol USER por defecto.
-      localhost:8080/api/public/createuser  
-      Body:  
-       {  
-       "email": "",  
-       "password": "",  
-       "firstName": "",  
-       "lastName": "",  
-       }
-
-    - Login usuario:
-      localhost:8080/api/public/login
-      Body:  
-       {  
-       "email": "",  
-       "password": ""  
-       }
-    - Setear el rol de un usuario (ADMIN):
-      localhost:8080/api/admin/set-role
-      Body:
-      {
-      "uid":"",
-      "role":""
-      }
-
-  - **RUTAS SUBJECT**
-
-    - Listar Subjects
-      localhost:8080/api/public/subjects/list
-
-    - Delete Subjects (ADMIN)
-      localhost:8080/api/admin/subjects/eliminar/{id}
-
-- **RUTAS CHARACTERISTIC**
-
-  - Listar Characteristic
-    localhost:8080/api/admin/characteristic/list
-
-  - Crear Characteristic
-    localhost:8080/api/admin/characteristic/add
-    Body:
-    {
-    "name":,
-    "url":
-    }
-
-  - Buscar Characteristic por ID
-    localhost:8080/api/admin/characteristic/{id}
-
-  - Actualizar Characteristic
-    localhost:8080/api/admin/characteristic/actualizar
-    Body:
-    {
-    "id": ,
-    "name": ,
-    "url":
-    }
-
-  - Eliminar Characteristic
-    localhost:8080/api/admin/characteristic/eliminar/{id}
-
-- **OTRAS**
-
-  - Lista las categorías (subjects) disponibles.:
-    localhost:8080/api/admin/subjects/list
-
-  - Agregar un nuevo subject (categorias) , solo ADMIN:
-
-    localhost:8080/api/admin/subjects/add
-    ![img_1.png](img_1.png)
-
-  - Editar el subject (categorias) de un profesor, solo ADMIN:
-
-    localhost:8080/api/admin/teachers/{id}
-
-  ![img.png](img.png)
-
-- Base de datos temporal es H2 en MEM, se crea al levantar el back.
-  url=jdbc:h2:mem:tutorlink  
-  consola: localhost:8080/H2-console  
-   user: sa  
-   password: sa
+- ## Licencia
+Distribuido bajo la licencia MIT. Ver `LICENSE` para más información.

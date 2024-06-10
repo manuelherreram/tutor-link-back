@@ -1,22 +1,19 @@
 package com.proyecto.tutorlink;
-import com.proyecto.tutorlink.entity.Characteristic;
-import com.proyecto.tutorlink.entity.Subject;
-import com.proyecto.tutorlink.repository.CharacteristicRepository;
-import com.proyecto.tutorlink.repository.SubjectRepository;
+import ch.qos.logback.core.util.COWArrayList;
+import com.proyecto.tutorlink.entity.*;
+import com.proyecto.tutorlink.repository.*;
 import com.proyecto.tutorlink.service.TeacherService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.proyecto.tutorlink.entity.Teacher;
-import com.proyecto.tutorlink.entity.Image;
-import com.proyecto.tutorlink.repository.TeacherRepository;
-import com.proyecto.tutorlink.repository.ImageRepository;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Random;
 @Component
 public class DataInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -32,8 +29,13 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private CharacteristicRepository characteristicRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private TeacherService teacherService;
 
+    @Autowired
+    private AvailabilityRepository availabilityRepository;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -43,6 +45,16 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     }
 
     private void initializeData() {
+
+        User user1 = new User("Juan Pablo", "Sopa", "juan.sopa@mail.com", "password123", "ROLE_USER", "1234567892", "Calle Lejos 666", "Stgo", "Chile","4pATozFoE1c5IXrR4og80dxPkT32");
+        User user2 = new User("Tulio", "Triviño", "tulio.triviño@mail.com", "password123", "ROLE_USER", "1234567892", "Calle Lejos 666", "Stgo", "Chile", "wEYnrYAg70feyZZBM1HWYMXStU42");
+        User user3 = new User("Joe", "Pino", "joe.pino@mail.com", "password123", "ROLE_USER", "1234567892", "Calle Lejos 666", "Stgo", "Chile","8IeihYcTxBb5J03vSFW5NxHZZTn2" );
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+
+
         List<Teacher> teachers = new ArrayList<>();
 
         Subject subjectM = new Subject("Matematicas");
@@ -53,12 +65,12 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         subjectRepository.save(subjectH);
         subjectRepository.save(subjectG);
 
-        Characteristic certificacion = new Characteristic("Licenciado en Educacion");
-        Characteristic idiomas = new Characteristic("Ingles");
-        Characteristic clasePrueba = new Characteristic("Clase de Prueba");
-        Characteristic clasesPresenciales = new Characteristic("Clases Presenciales");
-        Characteristic clasesGrupales = new Characteristic("Clases Grupales");
-        Characteristic superProfesor = new Characteristic("SuperProfe");
+        Characteristic certificacion = new Characteristic("Licenciado en Educacion", "https://static.thenounproject.com/png/3849525-200.png");
+        Characteristic idiomas = new Characteristic("Ingles", "https://static.thenounproject.com/png/2711986-200.png");
+        Characteristic clasePrueba = new Characteristic("Clase de Prueba", "https://static.thenounproject.com/png/31658-200.png");
+        Characteristic clasesPresenciales = new Characteristic("Clases Presenciales", "https://static.thenounproject.com/png/6407-200.png");
+        Characteristic clasesGrupales = new Characteristic("Clases Grupales", "https://static.thenounproject.com/png/3370603-200.png");
+        Characteristic superProfesor = new Characteristic("SuperProfe", "https://static.thenounproject.com/png/3124376-200.png");
 
         characteristicRepository.save(certificacion);
         characteristicRepository.save(idiomas);
@@ -76,16 +88,15 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     List<Characteristic> characteristics2 = new ArrayList<>();
         characteristics2.add(clasesGrupales);
         characteristics2.add(idiomas);
-        characteristics2.add(superProfesor);
 
-
-
+    List<Characteristic> characteristics3 = new ArrayList<>();
+        characteristics3.add(superProfesor);
 
 
         teachers.add(new Teacher("Marcelo Díaz", "100001", "Experto en métodos educativos innovadores y tecnologías de aprendizaje.", subjectH, characteristics));
         teachers.add(new Teacher("Lucía Fernández", "100002", "Amplia experiencia en educación primaria y desarrollo infantil.", subjectG, characteristics2));
         teachers.add(new Teacher("Carlos Ramírez", "100003", "Especialista en historia mundial y dinámicas de grupo.", subjectH, characteristics2));
-        teachers.add(new Teacher("Sofía Morales", "100004", "Dedicada a la enseñanza del arte y la expresión creativa.", subjectG, characteristics2));
+        teachers.add(new Teacher("Sofía Historia Vergara", "100004", "Dedicada a la enseñanza del arte y la expresión creativa.", subjectG, characteristics2));
         teachers.add(new Teacher("Eduardo Vargas", "100005", "Profesor de matemáticas con enfoque en resolución de problemas.", subjectM, characteristics2));
         teachers.add(new Teacher("Laura Martínez", "100006", "Especialista en ciencias de la salud y educación para el bienestar.", subjectH, characteristics2));
         teachers.add(new Teacher("Antonio López", "100007", "Imparte clases de física avanzada y experimentación científica.", subjectM, characteristics2));
@@ -105,7 +116,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         teachers.add(new Teacher("David Navarro", "100021", "Especialista en biología y ciencias naturales.", subjectG, characteristics2));
         teachers.add(new Teacher("Julia Casas", "100022", "Experta en psicología educativa y desarrollo del aprendizaje.", subjectM, characteristics));
         teachers.add(new Teacher("Juan García", "100023", "Profesor de educación física y deportes.", subjectG, characteristics2));
-        teachers.add(new Teacher("María Soto", "100024", "Enseña técnicas de estudio y preparación para exámenes.", subjectH, characteristics));
+        teachers.add(new Teacher("María Soto Super", "100024", "Enseña técnicas de estudio y preparación para exámenes.", subjectH, characteristics3));
 
         teachers.forEach(teacher -> {
             Teacher savedTeacher = teacherRepository.save(teacher);
@@ -115,6 +126,49 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
             imageRepository.save(new Image("https://images.unsplash.com/photo-1597570889212-97f48e632dad?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 4 del Profesor", savedTeacher));
             imageRepository.save(new Image("https://images.unsplash.com/photo-1555436169-20e93ea9a7ff?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "Imagen 5 del Profesor", savedTeacher));
         });
+
+    Random random = new Random();
+    LocalDate startDay = LocalDate.now();
+    int daysToAdd;
+
+    List<Teacher> morningShiftTeachers = teachers.subList(0, 12);
+    List<Teacher> afternoonShiftTeachers = teachers.subList(12, 24);
+
+// Asigna horarios AM
+for (Teacher teacher : morningShiftTeachers) {
+        for (int i = 0; i < 5; i++) {  // 5 días de disponibilidad
+            daysToAdd = i * 7; // Cada semana
+            LocalDate date = startDay.plusDays(daysToAdd);
+            LocalTime startTime = LocalTime.of(9, 0);
+            LocalTime endTime = LocalTime.of(14, 0);
+
+            Availability availability = new Availability();
+            availability.setTeacher(teacher);
+            availability.setDate(date);
+            availability.setStartTime(startTime);
+            availability.setEndTime(endTime);
+
+            availabilityRepository.save(availability);
+        }
+    }
+
+// Asigna horarios PM
+for (Teacher teacher : afternoonShiftTeachers) {
+        for (int i = 0; i < 5; i++) {  // 5 días de disponibilidad
+            daysToAdd = i * 7; // Cada semana
+            LocalDate date = startDay.plusDays(daysToAdd);
+            LocalTime startTime = LocalTime.of(15, 0);
+            LocalTime endTime = LocalTime.of(20, 0);
+
+            Availability availability = new Availability();
+            availability.setTeacher(teacher);
+            availability.setDate(date);
+            availability.setStartTime(startTime);
+            availability.setEndTime(endTime);
+
+            availabilityRepository.save(availability);
+        }
+    }
 
     }
 }
