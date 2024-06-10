@@ -47,12 +47,16 @@ import java.util.List;
         return characteristicAActualizar;
     }
 
-    public void deleteCharacteristic(Long id) throws CustomException {
-        if (getCharacteristicById(id) != null) {
-            characteristicRepository.deleteById(id);
-        } else {
-            throw new IllegalStateException("No se ha encontrado el characteristic con id " + id);
+    @Transactional
+    public void deleteCharacteristic(Long id) {
+        Characteristic characteristic = characteristicRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Characteristic not found"));
+
+        // Remove the characteristic from all teachers
+        for (Teacher teacher : characteristic.getTeachers()) {
+            teacher.getCharacteristics().remove(characteristic);
         }
 
+        characteristicRepository.delete(characteristic);
     }
 }
