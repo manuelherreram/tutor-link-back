@@ -54,20 +54,19 @@ public class FavoriteService {
             throw new CustomException("No favorite found for given user and teacher ID");
         }
     }
+
     public List<Favorite> getFavoritesByUser(Long userId) {
         return favoriteRepository.findByUserId(userId);
     }
 
-
-
     public Optional<Favorite> getFavorite(Long id) {
         return favoriteRepository.findById(id);
     }
+
     //getuserbyId
     public Favorite getFavoriteById(Long id) {
         return favoriteRepository.findById(id).orElse(null);
     }
-
 
     public List<Teacher> getFavoriteTeachersByUser(Long userId) {
         List<Favorite> favorites = favoriteRepository.findByUserId(userId);

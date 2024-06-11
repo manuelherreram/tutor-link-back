@@ -7,7 +7,8 @@ import com.proyecto.tutorlink.repository.CharacteristicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.proyecto.tutorlink.dto.CharacteristicDto;
+import com.proyecto.tutorlink.dto.CharacteristicInputDto;
 import java.util.List;
 
 @Service
@@ -15,13 +16,17 @@ import java.util.List;
     @Autowired
     private CharacteristicRepository characteristicRepository;
 
-    @Transactional
-    public Characteristic addCharacteristic(Characteristic characteristic) {
-        if (characteristicRepository.existsByName(characteristic.getName())) {
-            throw new IllegalStateException("A characteristic with the same id already exists");
+
+    // En CharacteristicService
+    public CharacteristicDto addCharacteristic(CharacteristicInputDto characteristicInputDto) {
+        if (characteristicRepository.existsByName(characteristicInputDto.getName())) {
+            throw new IllegalStateException("A characteristic with the same name already exists");
         }
-        return characteristicRepository.save(characteristic);
+        Characteristic characteristic = new Characteristic(characteristicInputDto.getName(), characteristicInputDto.getUrl());
+        characteristic = characteristicRepository.save(characteristic);
+        return new CharacteristicDto(characteristic);
     }
+
 
     public List<Characteristic> getAllCharacteristics() {
         return characteristicRepository.findAll();

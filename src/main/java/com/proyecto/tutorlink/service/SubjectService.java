@@ -7,7 +7,8 @@ import com.proyecto.tutorlink.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.proyecto.tutorlink.dto.SubjectDto;
+import com.proyecto.tutorlink.dto.SubjectInputDto;
 import java.util.List;
 
 
@@ -20,13 +21,19 @@ public class SubjectService {
     private TeacherRepository teacherRepository;
 
     //Agregar un nuevo subject
-    @Transactional
-    public Subject addSubject(Subject subject) {
-        if (subjectRepository.existsByTitle(subject.getTitle())) {
+
+    // En SubjectService
+    public SubjectDto addSubject(SubjectInputDto subjectInputDto) {
+        if (subjectRepository.existsByTitle(subjectInputDto.getTitle())) {
             throw new IllegalStateException("A subject with the same title already exists");
         }
-        return subjectRepository.save(subject);
+        Subject subject = new Subject(subjectInputDto.getTitle());
+        subject.setUrl(subjectInputDto.getUrl());
+        subject = subjectRepository.save(subject);
+        return new SubjectDto(subject);
     }
+
+
     public List<Subject> getAllSubjects() {
         return subjectRepository.findAll();
     }
