@@ -36,20 +36,14 @@ import java.util.List;
         return characteristicRepository.findById(id).orElseThrow(() -> new CustomException("Characteristic not found"));
     }
 
-    public Characteristic actualizarCharacteristic(Characteristic characteristicRecibido) {
-        Characteristic characteristicAActualizar = characteristicRepository.findById((long) characteristicRecibido.getId()).orElse(null);
+   public Characteristic updateCharacteristic(Long id, CharacteristicInputDto characteristicInputDto) {
+        Characteristic characteristic = characteristicRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Characteristic not found"));
 
+        characteristic.setName(characteristicInputDto.getName());
+        characteristic.setUrl(characteristicInputDto.getUrl());
 
-        if (characteristicAActualizar != null) {
-            characteristicAActualizar = characteristicRecibido;
-            characteristicRepository.save(characteristicAActualizar);
-
-        } else {
-            throw new IllegalStateException("No se ha encontrado el characteristic con id " + characteristicRecibido.getId());
-        }
-
-
-        return characteristicAActualizar;
+        return characteristicRepository.save(characteristic);
     }
 
     @Transactional

@@ -59,12 +59,15 @@ public class CharacteristicController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping("/admin/characteristics/actualizar")
-    public ResponseEntity<?> actualizarCharacteristic(@RequestBody CharacteristicDto characteristicDto){
-        Characteristic updatedCharacteristic = characteristicService.actualizarCharacteristic(new Characteristic(characteristicDto.getName(), characteristicDto.getUrl()));
-        return ResponseEntity.ok(new CharacteristicDto(updatedCharacteristic));
+    @PutMapping("/admin/characteristics/update/{id}")
+    public ResponseEntity<?> updateCharacteristic(@PathVariable Long id, @RequestBody CharacteristicInputDto characteristicInputDto) {
+        try {
+            Characteristic updatedCharacteristic = characteristicService.updateCharacteristic(id, characteristicInputDto);
+            return ResponseEntity.ok(updatedCharacteristic);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("An error occurred while updating the characteristic");
+        }
     }
-
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/admin/characteristics/eliminar/{id}")
     public ResponseEntity<?> deleteCharacteristic(@PathVariable Long id) throws CustomException {
