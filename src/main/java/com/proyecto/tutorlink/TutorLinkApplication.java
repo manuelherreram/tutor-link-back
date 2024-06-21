@@ -32,7 +32,7 @@ public class TutorLinkApplication {
 	}
 	@EventListener(ApplicationReadyEvent.class)
 	public void applicationReady() {
-		System.out.println("\n \uD83D\uDE80 Server is now rocking at port 8080! Let's go!\n" +
+		System.out.println("\n \uD83D\uDE80 TutorLink is live at port 8080! Let's go!\n" +
 				"\uD83D\uDCDA API documentation is available on Swagger at http://localhost:8080/swagger-ui.html\n \n");
 	}
 }

@@ -71,5 +71,10 @@ public class AvailabilityController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    // Endpoint para borrar todas las disponibilidades
+    @DeleteMapping("/delete-all")
+    public ResponseEntity<String> deleteAllAvailabilities() {
+        availabilityService.deleteAllAvailabilities();
+        return ResponseEntity.ok("Todas las disponibilidades han sido eliminadas exitosamente.");
+    }
 }
