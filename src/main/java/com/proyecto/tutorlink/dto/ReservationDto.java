@@ -10,7 +10,7 @@ public class ReservationDto {
     private Long teacherId; // Direct access to teacherId
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private String status;
+
 
     // Default constructor
     public ReservationDto() {
@@ -25,7 +25,7 @@ public class ReservationDto {
         this.teacherId = teacher != null ? teacher.getId() : null;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = status;
+
     }
 
     // Getters and Setters
@@ -87,11 +87,5 @@ public class ReservationDto {
         this.endTime = endTime;
     }
 
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

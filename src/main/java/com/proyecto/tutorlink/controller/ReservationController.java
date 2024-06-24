@@ -2,11 +2,15 @@ package com.proyecto.tutorlink.controller;
 
 import com.proyecto.tutorlink.dto.ReservationDto;
 import com.proyecto.tutorlink.entity.Reservation;
+import com.proyecto.tutorlink.service.EmailService;
 import com.proyecto.tutorlink.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -15,13 +19,17 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @PostMapping
+    @Autowired
+    private EmailService emailService;
+
+    @PostMapping("/create")
     public ResponseEntity<?> createReservation(@RequestBody ReservationDto reservationDto) {
         try {
             Reservation reservation = reservationService.bookClass(reservationDto);
+            emailService.sendReservationConfirmationEmail(reservation);
             return ResponseEntity.ok(reservation);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al crear la reserva: " + e.getMessage());
         }
     }
     //obtener todas las reservas
