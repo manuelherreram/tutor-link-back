@@ -141,5 +141,11 @@ public class UserService {
     public User getUserByUID(String uid) {
         return userRepository.findByUID(uid).orElse(null);
     }
+
+    public String getUserEmailById(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getEmail();
+    }
+
 }
 

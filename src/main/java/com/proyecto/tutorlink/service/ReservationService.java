@@ -65,7 +65,7 @@ public class ReservationService {
         reservation.setUser(user);
         reservation.setStartTime(startTime);
         reservation.setEndTime(endTime);
-        reservation.setStatus(ReservationStatus.PENDING);
+
         return reservationRepository.save(reservation);
     }
 
@@ -101,7 +101,7 @@ public class ReservationService {
         dto.setTeacher(convertTeacherToDto(reservation.getTeacher()));
         dto.setStartTime(reservation.getStartTime());
         dto.setEndTime(reservation.getEndTime());
-        dto.setStatus(reservation.getStatus().name());
+
         return dto;
     }
 

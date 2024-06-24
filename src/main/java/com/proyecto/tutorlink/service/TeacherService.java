@@ -83,7 +83,7 @@ private AvailabilityRepository availabilityRepository;
 
     public List<Teacher> getRandomTeachers() {
         List<Teacher> allTeachers = teacherRepository.findAll();
-        return selectRandomTeachers(allTeachers, 10);
+        return selectRandomTeachers(allTeachers, 20);
     }
 
     private List<Teacher> selectRandomTeachers(List<Teacher> teachers, int count) {

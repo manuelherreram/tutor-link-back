@@ -36,7 +36,6 @@ public class Reservation {
         this.teacher = teacher;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = status;
     }
 
     public Reservation(User user, Teacher teacher, LocalDateTime startTime, LocalDateTime endTime, ReservationStatus status) {
@@ -44,7 +43,7 @@ public class Reservation {
         this.teacher = teacher;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.status = status;
+
     }
 
     public Long getId() {
@@ -91,7 +90,5 @@ public class Reservation {
         return status;
     }
 
-    public void setStatus(ReservationStatus status) {
-        this.status = status;
-    }
+
 }

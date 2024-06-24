@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
+import java.util.Optional;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long>, JpaSpecificationExecutor<Teacher> {
     boolean existsByDni(String dni);
@@ -26,4 +27,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long>, JpaSpec
     List<Teacher> findFavoriteTeachersByUser(@Param("userId") Long userId);
 
     List<Teacher> findBySubject(Subject subject);
+
+   //find teacher by Id
+    Optional<Teacher> findById(Long id);
+
 }
