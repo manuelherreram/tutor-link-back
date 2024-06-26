@@ -12,22 +12,12 @@ Tutor Link es una plataforma diseñada para conectar estudiantes con profesores,
 ## Tecnologías Utilizadas
 - Spring Boot
 - Hibernate ORM con JPA
-- Base de datos H2 en memoria
+- Base de datos MySQL
 - Firebase para autenticación
 - Swagger para documentación de la API
 
-## Configuración Inicial
-1. **Clonar el repositorio**: `git clone URL`
-2. **Instalar dependencias**: `mvn install`
-3. **Configurar la base de datos H2**:
-  - URL: `jdbc:h2:mem:tutorlink`
-  - Consola: [H2 Console](http://localhost:8080/H2-console)
-  - Usuario: `sa`
-  - Contraseña: `sa`
-4. **Ejecutar la aplicación**: `mvn spring-boot:run`
-
 ## Uso
-La API está documentada con Swagger, accesible desde `http://localhost:8080/swagger-ui.html` después de ejecutar la aplicación. Para acceder a Swagger:
+La API está documentada con Swagger, accesible desde `**/swagger-ui.html` después de ejecutar la aplicación. Para acceder a Swagger:
 - **Usuario**: user
 - **Contraseña**: admin  
 
