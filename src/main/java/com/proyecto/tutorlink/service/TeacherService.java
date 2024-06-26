@@ -107,9 +107,9 @@ private AvailabilityRepository availabilityRepository;
         }
         teacherRepository.deleteById(id);
     }
-    //actualizar un profesor (nombre, dni, descripción, subject)
+
     // NOTA: ESTE METODO NO ACTUALIZA LAS IMAGENES
-    // SI SE REQUIERE SE PODRIA IMPLEMENTAR EN UN METODO PROPIO
+
 
     @Transactional
     public Teacher updateTeacher(Long teacherId, Teacher updatedTeacherData) {

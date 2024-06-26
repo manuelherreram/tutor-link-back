@@ -5,6 +5,6 @@ public class CustomException extends Exception {
         super(message);
     }
 
-    // constructores adicionales
+
  }
 

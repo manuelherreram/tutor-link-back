@@ -20,9 +20,7 @@ public class SubjectService {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    //Agregar un nuevo subject
 
-    // En SubjectService
     public SubjectDto addSubject(SubjectInputDto subjectInputDto) {
         if (subjectRepository.existsByTitle(subjectInputDto.getTitle())) {
             throw new IllegalStateException("A subject with the same title already exists");

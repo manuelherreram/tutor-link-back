@@ -52,7 +52,7 @@ public class ReservationDto {
 
     public void setTeacher(TeacherBasicDto teacher) {
         this.teacher = teacher;
-        this.teacherId = teacher != null ? teacher.getId() : null; // Ensure synchronization
+        this.teacherId = teacher != null ? teacher.getId() : null;
     }
 
     public Long getUserId() {

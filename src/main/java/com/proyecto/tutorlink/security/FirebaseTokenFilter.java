@@ -24,17 +24,15 @@ public class FirebaseTokenFilter extends OncePerRequestFilter {
         String idToken = request.getHeader("Authorization");
         if (idToken != null && !idToken.isEmpty()) {
             try {
-                // Extraer el token sin el prefijo "Bearer "
+
                 idToken = idToken.startsWith("Bearer ") ? idToken.substring(7) : idToken;
                 FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
                 String uid = decodedToken.getUid();
                 String role = decodedToken.getClaims().get("role") != null ? decodedToken.getClaims().get("role").toString() : "USER";
 
-                // Crear autoridades basadas en el rol del usuario
                 List<SimpleGrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
 
-                // Crear y establecer el objeto de autenticación en el contexto de seguridad
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(uid, null, authorities);
+               UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(uid, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
