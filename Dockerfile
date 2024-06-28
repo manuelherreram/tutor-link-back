@@ -12,6 +12,9 @@ WORKDIR /app
 # Copy the built jar file from the build stage
 COPY --from=build /app/target/grupo6-0.0.1-SNAPSHOT.jar ./tutor-app.jar
 
+# Create necessary directories
+RUN mkdir -p /app/src/main/resources
+
 # Copy the .env file to the container
 COPY .env /app/.env
 

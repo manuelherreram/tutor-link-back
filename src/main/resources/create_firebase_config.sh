@@ -3,8 +3,12 @@
 # Load environment variables from .env file
 set -o allexport
 source /app/.env
-set -o allexport
+set +o allexport
 
+# Create directory if not exists
+mkdir -p /app/src/main/resources
+
+# Write firebase-admin-sdk.json
 cat <<EOF > /app/src/main/resources/firebase-admin-sdk.json
 {
   "type": "$FIREBASE_TYPE",
