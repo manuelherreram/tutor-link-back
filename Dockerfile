@@ -12,8 +12,13 @@ WORKDIR /app
 # Copy the built jar file from the build stage
 COPY --from=build /app/target/grupo6-0.0.1-SNAPSHOT.jar ./tutor-app.jar
 
-# Copy the firebase-admin-sdk.json file to the resources directory in the runtime image
-COPY src/main/resources/firebase-admin-sdk.json ./src/main/resources/firebase-admin-sdk.json
+# Copy the .env file to the container
+COPY .env /app/.env
+
+# Copy the script to the container
+COPY src/main/resources/create_firebase_config.sh /app/create_firebase_config.sh
+RUN chmod +x /app/create_firebase_config.sh
+RUN /app/create_firebase_config.sh
 
 EXPOSE 8080
 CMD ["java", "-jar", "tutor-app.jar"]
