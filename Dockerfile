@@ -12,6 +12,8 @@ WORKDIR /app
 # Copy the built jar file from the build stage
 COPY --from=build /app/target/grupo6-0.0.1-SNAPSHOT.jar ./tutor-app.jar
 
+# Ensure the resources directory exists
+RUN mkdir -p ./src/main/resources/
 # Copy the firebase-admin-sdk.json file to the resources directory in the runtime image
 COPY src/main/resources/firebase-admin-sdk.json ./src/main/resources/firebase-admin-sdk.json
 
