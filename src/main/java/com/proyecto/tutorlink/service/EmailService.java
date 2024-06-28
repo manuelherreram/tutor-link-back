@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
-    private Resend resend = new Resend("re_CwsnQxHt_PywDhNUhrbDmtZhfHawcDYkB");
+    private Resend resend = new Resend("re_boRdhn1C_QBFSki1ovSTQzY4dS95jQVS4");
 
     public void sendReservationConfirmationEmail(Reservation reservation) {
         //String recipientEmail = reservation.getUser().getEmail();
-        String recipientEmail = "rodrigofaure@gmail.com";
+        String recipientEmail = "manuel.herrera.m@gmail.com";
         String subject = "Confirmación de Reserva";
         String content = buildEmailContent(reservation);
 
