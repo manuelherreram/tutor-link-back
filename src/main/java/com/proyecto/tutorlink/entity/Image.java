@@ -10,14 +10,13 @@ public class Image {
     private Long id;
 
     @Column(nullable = false)
-    private String url;  // URL de la imagen
+    private String url;
     @Column(length = 255)
-    private String title;  // título de la imagen
+    private String title;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id", nullable = false)
     @JsonIgnore
-    private Teacher teacher;  // muchos a uno con Teacher
-
+    private Teacher teacher;
     public Image() {
     }
 
